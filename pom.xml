@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ueg</groupId>
-	<artifactId>nutshell-frontend</artifactId>
+	<artifactId>nutshell-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>nutshell-frontend</name>
-	<description>Frontend do projeto Nutshell</description>
+	<name>nutshell-backend</name>
+	<description>Backend do projeto Nutshell</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
