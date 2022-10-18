@@ -22,4 +22,5 @@ public class Pessoa {
 
     @Column(name = "EMAIL")
     private String email;
+
 }
