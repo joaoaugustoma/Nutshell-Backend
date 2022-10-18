@@ -6,19 +6,23 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Fornecedor {
+@Entity(name = "FORNECEDOR")
+public class Fornecedor extends PessoaJuridica{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
-    private String cpfCnpj;
+    @Column(name = "DATA_CADASTRO")
+    private LocalDateTime dataCadastro;
 
-    private String razaoSocial;
 }
+
+
+
