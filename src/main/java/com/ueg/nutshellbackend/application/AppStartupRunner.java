@@ -59,7 +59,12 @@ public class AppStartupRunner implements ApplicationRunner {
 
         fornecedorRepository.save(fornecedor);
 
-        for(Fornecedor fornecedorFind : fornecedorRepository.findAll())
+        for(Fornecedor fornecedorFind : fornecedorRepository.findAll()) {
             System.out.println(fornecedorFind.getCnpj());
+        }
+
+        System.out.println(fornecedorRepository.findByCnpj("08103165000109").getNome());
+
+        System.out.println(fornecedorRepository.countByCnpj("08103165000109"));
     }
 }
