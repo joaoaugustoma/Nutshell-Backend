@@ -35,7 +35,6 @@ public class FornecedorService extends AbstractService<Fornecedor, Long> {
     protected void prepararEdicao(Fornecedor fornecedor) {
         Fornecedor fornecedorExistente = listarById(fornecedor.getIdPessoa());
 
-
         fornecedor.setStatus(fornecedorExistente.getStatus());
         fornecedor.setDataCadastro(fornecedorExistente.getDataCadastro());
         fornecedor.setDataAtualizacao(LocalDate.now());
@@ -43,23 +42,24 @@ public class FornecedorService extends AbstractService<Fornecedor, Long> {
 
     @Override
     protected void prepararInclusao(Fornecedor fornecedor) {
+        validarFornecedorDuplicadoPorCnpj(fornecedor);
+
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        LocalDate data = LocalDate.now();
-        fornecedor.setDataCadastro(data);
-        fornecedor.setDataAtualizacao(data);
+        fornecedor.setDataCadastro(LocalDate.now());
+        fornecedor.setDataAtualizacao(LocalDate.now());
     }
 
     @Override
-    public Boolean validarCamposObrigatorios(Fornecedor fornecedor) {
-        return null;
+    public void validarCamposObrigatorios(Fornecedor fornecedor) {
+        //TODO implementar validação de campos obrigatorios
     }
 
-    @Override
-    public Boolean validarFornecedorDuplicadoPorCnpj(Fornecedor fornecedor) {
-        return null;
+
+    public void validarFornecedorDuplicadoPorCnpj(Fornecedor fornecedor) {
+        //TODO implementar validação de cnpj duplicado
     }
 
-    public Fornecedor getByCnpj(String cnpj) {
+    public Fornecedor listarByCnpj(String cnpj) {
         return null;
     }
 

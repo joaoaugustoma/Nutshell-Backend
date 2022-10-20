@@ -12,7 +12,6 @@ public abstract class AbstractService<TABELA extends GenericTabela, TYPE_PK> {
 
     public TABELA salvar(TABELA tabela){
         validarCamposObrigatorios(tabela);
-        validarFornecedorDuplicadoPorCnpj(tabela);
         if(validarIdNull(tabela)){
             prepararInclusao(tabela);
         }else {
@@ -54,8 +53,6 @@ public abstract class AbstractService<TABELA extends GenericTabela, TYPE_PK> {
 
     protected abstract void prepararInclusao(TABELA tabela);
 
-    public abstract Boolean validarCamposObrigatorios(TABELA tabela);
-
-    public abstract Boolean validarFornecedorDuplicadoPorCnpj(TABELA tabela);
+    public abstract void validarCamposObrigatorios(TABELA tabela);
 
 }
