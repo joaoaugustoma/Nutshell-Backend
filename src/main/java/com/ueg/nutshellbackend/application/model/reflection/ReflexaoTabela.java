@@ -31,9 +31,9 @@ public class ReflexaoTabela {
 
     public static Object getIdValue(GenericTabela genericTabela
     ) {
-        Field idField = getIdField(genericTabela
-        );
-        String idMethodName = "get" + Util.getUCFirst(idField.getName());
+        Field idField = getIdField(genericTabela);
+        String idMethodName = Util.getGetterMethodName(idField.getName());
+
         return Util.invokeGetMethod(genericTabela, idMethodName);
     }
 
