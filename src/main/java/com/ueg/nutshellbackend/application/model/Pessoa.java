@@ -2,6 +2,7 @@ package com.ueg.nutshellbackend.application.model;
 
 import com.ueg.nutshellbackend.application.configuration.Constante;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
+import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.Set;
 @SequenceGenerator(name = "S_PESSOA", sequenceName = "S_PESSOA", allocationSize = 1, schema = Constante.DATABASE_OWNER)
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity(name = "PESSOA")
-public class Pessoa {
+public class Pessoa extends GenericTabela {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_PESSOA")
