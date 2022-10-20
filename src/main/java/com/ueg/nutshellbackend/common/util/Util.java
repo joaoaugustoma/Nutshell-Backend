@@ -36,13 +36,21 @@ public class Util {
     }
 
     public static Object invokeGetMethod(GenericTabela genericTabela, String fieldName) {
-        String methodName = "get" + Util.getUCFirst(fieldName);
+        String methodName = getGetterMethodName(fieldName);
         return invokeMethod(genericTabela, methodName, null);
     }
 
     public static void invokeSetMethod(GenericTabela genericTabela, String fieldName, Object object) {
-        String methodName = "set" + Util.getUCFirst(fieldName);
+        String methodName = getSettterMethodName(fieldName);
         invokeMethod(genericTabela, methodName, object);
+    }
+
+    public static String getGetterMethodName(String fieldName) {
+        return "get" + Util.getUCFirst(fieldName);
+    }
+
+    public static String getSettterMethodName(String fieldName) {
+        return "set" + Util.getUCFirst(fieldName);
     }
 
     public static String getLastChar(String str) {
