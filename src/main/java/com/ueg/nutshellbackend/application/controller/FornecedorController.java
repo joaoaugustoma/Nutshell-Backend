@@ -4,6 +4,8 @@ import com.ueg.nutshellbackend.application.dto.FornecedorDTO;
 import com.ueg.nutshellbackend.application.mapper.FornecedorMapper;
 import com.ueg.nutshellbackend.application.model.Fornecedor;
 import com.ueg.nutshellbackend.application.service.FornecedorService;
+import com.ueg.nutshellbackend.common.exception.NotFoundException;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class FornecedorController {
 
     @Autowired
     private FornecedorMapper fornecedorMapper;
+
+    @Autowired
+    private Logger log;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> incluir(@RequestBody FornecedorDTO fornecedorDTO) {
@@ -40,7 +45,7 @@ public class FornecedorController {
 
     @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<?> getFornecedores(){
-        List<Fornecedor> fornecedores = fornecedorService.getAll();
+        List<Fornecedor> fornecedores = fornecedorService.listarTudo();
         List<FornecedorDTO> fornecedoresDTO = new ArrayList<>();
         for (Fornecedor fornecedor : fornecedores) {
             FornecedorDTO fornecedorDTO = fornecedorMapper.toDTO(fornecedor);
@@ -51,7 +56,12 @@ public class FornecedorController {
 
     @GetMapping( path = "{idPessoa}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<?> getFornecedorById(@PathVariable("idPessoa") Long idPessoa) {
-        Fornecedor fornecedor = fornecedorService.getByIdPessoa(idPessoa);
+        Fornecedor fornecedor = new Fornecedor();
+        try {
+            fornecedor = fornecedorService.listarById(idPessoa);
+        } catch (NotFoundException e){
+            log.error("Fornecedor não encontrado");
+        }
         FornecedorDTO fornecedorDTO = new FornecedorDTO();
 
         if(fornecedor != null)
