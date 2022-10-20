@@ -72,7 +72,7 @@ public class FornecedorController {
 
     @GetMapping( path = "{cnpj}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<?> getByCnpj(@PathVariable("cnpj") String cnpj) {
-        Fornecedor fornecedor = fornecedorService.getByCnpj(cnpj);
+        Fornecedor fornecedor = fornecedorService.listarByCnpj(cnpj);
         FornecedorDTO fornecedorDTO = new FornecedorDTO();
 
         if(fornecedor != null)
