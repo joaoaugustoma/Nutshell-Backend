@@ -1,6 +1,12 @@
 package com.ueg.nutshellbackend.application.repository.fornecedor;
 
-public interface FornecedorRepositoryCustom {
+import com.ueg.nutshellbackend.application.dto.FornecedorDTO;
+import com.ueg.nutshellbackend.application.model.Fornecedor;
+
+import java.util.List;
+
+public interface FornecedorRepositoryCustom  {
 
     //TODO findAllByFiltro(FornecedorDTO fornecedorDTO)
+    public List<Fornecedor> findAllByFiltro(FornecedorDTO fornecedorDTO);
 }

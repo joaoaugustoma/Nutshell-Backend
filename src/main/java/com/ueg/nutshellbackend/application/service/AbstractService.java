@@ -2,13 +2,22 @@ package com.ueg.nutshellbackend.application.service;
 
 import com.ueg.nutshellbackend.application.model.Fornecedor;
 import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
+import com.ueg.nutshellbackend.common.exception.BusinessException;
+import com.ueg.nutshellbackend.common.exception.MessageCode;
+import com.ueg.nutshellbackend.common.exception.MessageResponse;
 import com.ueg.nutshellbackend.common.exception.NotFoundException;
+import org.aspectj.bridge.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractService<TABELA extends GenericTabela, TYPE_PK> {
+public abstract class AbstractService<TABELA extends GenericTabela, TABELA_DTO, TYPE_PK> {
+
+    EntityManager entityManager;
 
     public TABELA salvar(TABELA tabela){
         validarCamposObrigatorios(tabela);
@@ -27,12 +36,18 @@ public abstract class AbstractService<TABELA extends GenericTabela, TYPE_PK> {
         if(tabela.isPresent()){
             return tabela.get();
         }else {
-            throw new NotFoundException("Objeto não existente. Id não encontrado.");
+            throw new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO);
         }
     }
 
     public List<TABELA> listarTudo(){
-      return getRepository().findAll();
+        List<TABELA> tabelas = getRepository().findAll();
+
+        if(tabelas.isEmpty()){
+            throw new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO);
+        }
+
+      return tabelas;
     };
 
     private void executarSalvar(TABELA tabela) {
@@ -40,14 +55,10 @@ public abstract class AbstractService<TABELA extends GenericTabela, TYPE_PK> {
     }
 
     private boolean validarIdNull(TABELA tabela) {
-        if(tabela.getIdValue(tabela) == null){
-            return true;
-        } else {
-            return false;
-        }
+        return tabela.getIdValue(tabela) == null;
     };
 
-    protected abstract JpaRepository getRepository();
+    protected abstract JpaRepository<TABELA, TYPE_PK> getRepository();
 
     protected abstract void prepararEdicao(TABELA tabela);
 

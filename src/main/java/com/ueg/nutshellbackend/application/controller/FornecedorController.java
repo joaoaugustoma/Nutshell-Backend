@@ -35,7 +35,7 @@ public class FornecedorController {
         return ResponseEntity.ok(fornecedorDTO);
     }
 
-    @PutMapping(path = "/{idPessoa:[\\d]+}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/{idPessoa}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> alterar(@PathVariable final Long idPessoa, @RequestBody FornecedorDTO fornecedorDTO) {
         Fornecedor fornecedor = fornecedorMapper.toEntity(fornecedorDTO);
         fornecedor.setIdPessoa(idPessoa);
@@ -48,8 +48,7 @@ public class FornecedorController {
         List<Fornecedor> fornecedores = fornecedorService.listarTudo();
         List<FornecedorDTO> fornecedoresDTO = new ArrayList<>();
         for (Fornecedor fornecedor : fornecedores) {
-            FornecedorDTO fornecedorDTO = fornecedorMapper.toDTO(fornecedor);
-            fornecedoresDTO.add(fornecedorDTO);
+            fornecedoresDTO.add(fornecedorMapper.toDTO(fornecedor));
         }
         return ResponseEntity.ok(fornecedoresDTO);
     }
@@ -66,31 +65,21 @@ public class FornecedorController {
 
         if(fornecedor != null)
             fornecedorDTO = fornecedorMapper.toDTO(fornecedor);
-
         return ResponseEntity.ok(fornecedorDTO);
     }
 
-    @GetMapping( path = "{cnpj}", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> getByCnpj(@PathVariable("cnpj") String cnpj) {
-        Fornecedor fornecedor = fornecedorService.listarByCnpj(cnpj);
-        FornecedorDTO fornecedorDTO = new FornecedorDTO();
 
-        if(fornecedor != null)
-            fornecedorDTO = fornecedorMapper.toDTO(fornecedor);
-
-        return ResponseEntity.ok(fornecedorDTO);
-    }
-//    TODO
-//    @GetMapping(path = "/filtro", produces = { MediaType.APPLICATION_JSON_VALUE })
-//    public ResponseEntity<?> getFornecedorsByFiltro(@ModelAttribute("filtroDTO") final FiltroFornecedorDTO filtroDTO) {
-//        List<Fornecedor> fornecedores = fornecedorService.getFornecedoresByFiltro(filtroDTO);
+    @GetMapping(path = "/filtro", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> getFornecedorsByFiltro(@ModelAttribute("filtroDTO") final FornecedorDTO filtroDTO) {
+//        List<Fornecedor> fornecedores = fornecedorService.listarByFiltro(filtroDTO);
 //        List<FornecedorDTO> fornecedoresDTO = new ArrayList<>();
 //        for (Fornecedor fornecedor: fornecedores) {
 //            fornecedoresDTO.add (fornecedorMapper.toDTO(fornecedor));
 //        }
-//
 //        return ResponseEntity.ok(fornecedoresDTO);
-//    }
+
+        return null;
+    }
 
     @PutMapping(path = "/{idPessoa:[\\d]+}/inativo", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> inativar(@PathVariable final Long idPessoa) {

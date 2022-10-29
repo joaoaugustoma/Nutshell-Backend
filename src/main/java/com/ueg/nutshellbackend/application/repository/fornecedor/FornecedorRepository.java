@@ -13,9 +13,4 @@ public interface FornecedorRepository extends JpaRepository<Fornecedor, Long>, F
 
     public Long countByCnpj(final String cnpj);
 
-//    @Query(" SELECT fornecedor FROM FORNECEDOR fornecedor "
-//            + " WHERE fornecedor.cnpj = :cnpj ")
-//    public Fornecedor findByCnpjAndNotIdPessoa(@Param("cnpj") final String cnpj);
-
-
 }
