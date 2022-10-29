@@ -2,6 +2,7 @@ package com.ueg.nutshellbackend.application.model;
 
 import com.ueg.nutshellbackend.application.configuration.Constante;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
+import com.ueg.nutshellbackend.application.enums.converter.StatusAtivoInativoConverter;
 import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
 import lombok.*;
 
@@ -31,7 +32,8 @@ public class Pessoa extends GenericTabela {
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "STATUS", nullable = false)
+    @Convert(converter = StatusAtivoInativoConverter.class)
+    @Column(name = "STATUS", nullable = false, length = 1)
     private StatusAtivoInativo status;
 
     @Column(name = "CEP", nullable = false)
