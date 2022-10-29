@@ -59,12 +59,23 @@ public class AppStartupRunner implements ApplicationRunner {
 
         fornecedorRepository.save(fornecedor);
 
-        for(Fornecedor fornecedorFind : fornecedorRepository.findAll()) {
-            System.out.println(fornecedorFind.getCnpj());
-        }
+        fornecedor.setIdPessoa(2L);
+        fornecedor.setNome("uau");
+        fornecedor.setEmail("SIS@SIS.COM");
+        fornecedor.setStatus(StatusAtivoInativo.ATIVO);
+        fornecedor.setCep("7512312");
+        fornecedor.setEndereco("AVENIDA SASUKE");
+        fornecedor.setCnpj("00000000000001");
+        fornecedor.setInscricaoEstadual("123.123.123.123");
+        fornecedor.setNomeFantasia("UNIKA");
+        fornecedor.setDataCadastro(LocalDate.of(2021, 10, 24));
+        fornecedor.setDataAtualizacao(LocalDate.now());
+        fornecedor.setTelefones(new HashSet<>());
 
-        System.out.println(fornecedorRepository.findByCnpj("08103165000109").getNome());
+//      fornecedor.setCidade(Cidade.ANAPOLIS)
+//      fornecedor.setEstado(Cidade.GOIAS)
 
-        System.out.println(fornecedorRepository.countByCnpj("08103165000109"));
+        fornecedorRepository.save(fornecedor);
+
     }
 }

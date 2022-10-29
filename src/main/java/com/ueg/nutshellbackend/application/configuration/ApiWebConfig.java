@@ -24,7 +24,7 @@ public class ApiWebConfig {
         config.addAllowedMethod(HttpMethod.PUT);
         config.addAllowedMethod(HttpMethod.DELETE);
         config.addAllowedMethod(HttpMethod.OPTIONS);
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/*", config);
         return new CorsFilter(source);
     }
 
