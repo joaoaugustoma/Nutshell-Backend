@@ -13,8 +13,6 @@ public class TipoTelefoneConverter implements AttributeConverter<TipoTelefone, L
         return tipoTelefone != null ? tipoTelefone.getId() : null;
     }
 
-
-
     @Override
     public TipoTelefone convertToEntityAttribute(Long id) {
         return TipoTelefone.getById(id);

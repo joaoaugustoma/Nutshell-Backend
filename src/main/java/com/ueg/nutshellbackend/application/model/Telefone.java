@@ -3,16 +3,17 @@ package com.ueg.nutshellbackend.application.model;
 import com.ueg.nutshellbackend.application.configuration.Constante;
 import com.ueg.nutshellbackend.application.enums.TipoTelefone;
 import com.ueg.nutshellbackend.application.enums.converter.TipoTelefoneConverter;
-import org.hibernate.Hibernate;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "TELEFONE", schema= Constante.DATABASE_OWNER)
+@EqualsAndHashCode(of = { "ddd", "numero" })
 @SequenceGenerator(name = "S_TELEFONE", sequenceName = "S_TELEFONE", allocationSize = 1, schema = Constante.DATABASE_OWNER)
-public class Telefone implements Serializable {
+public @Data class Telefone implements Serializable {
     private static final long serialVersionUID = -3928643077340896948L;
 
     @Id
@@ -27,26 +28,10 @@ public class Telefone implements Serializable {
     @Column(name = "NUMR_TELEFONE_USUARIO", length = 11, nullable = false)
     private String numero;
 
-    @Convert(converter = TipoTelefoneConverter.class)
     @Column(name = "TIPO_TELEFONE", nullable = false, length = 1)
+    @Convert(converter = TipoTelefoneConverter.class)
     private TipoTelefone tipo;
 
     @Column(name = "DDD_TELEFONE", length = 5)
     private Long ddd;
-
-    public Telefone() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Telefone telefone = (Telefone) o;
-        return id != null && Objects.equals(id, telefone.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

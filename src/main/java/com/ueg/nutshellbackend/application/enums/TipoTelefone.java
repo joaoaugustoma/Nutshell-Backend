@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
-@Getter
 public enum TipoTelefone {
 
     CELULAR(1L, "Celular"), RESIDENCIAL(2L, "Residencial"), COMERCIAL(3L, "Comercial");
@@ -12,6 +11,14 @@ public enum TipoTelefone {
     private final Long id;
 
     private final String descricao;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 
     TipoTelefone(Long id, String descricao) {
         this.id = id;
