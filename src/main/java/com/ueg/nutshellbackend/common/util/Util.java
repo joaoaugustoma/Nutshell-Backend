@@ -1,9 +1,13 @@
 package com.ueg.nutshellbackend.common.util;
 
 import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class Util {
 
@@ -60,4 +64,28 @@ public class Util {
     public static String getFirstChar(String str) {
         return str.substring(0, 1);
     }
+
+    public static boolean isEmpty(final String value) {
+        return StringUtils.isEmpty(value);
+    }
+
+    public static String getValorConcatenado(final String separador, Object... parametros) {
+        return Util.getValorConcatenado(separador, Arrays.asList(parametros));
+    }
+
+    public static String getValorConcatenado(final String separador, final List<Object> parametros) {
+        StringBuilder build = new StringBuilder();
+        Iterator<?> iterator = parametros.iterator();
+
+        while (iterator.hasNext()) {
+            Object valor = iterator.next().toString();
+            build.append(valor);
+
+            if (iterator.hasNext()) {
+                build.append(separador);
+            }
+        }
+        return build.toString();
+    }
+
 }
