@@ -17,30 +17,30 @@ public class FornecedorRepositoryImpl implements FornecedorRepositoryCustom {
     @Autowired
     private EntityManager entityManager;
 
-    @Override
-    public List<Fornecedor> findAllByFiltro(FornecedorDTO fornecedorDTO) {
-        Map<String, Object> parametros = new HashMap<>();
-        StringBuilder jpql = new StringBuilder();
-        jpql.append(" SELECT DISTINCT fornecedor FROM Fornecedor fornecedor");
-        jpql.append(" WHERE 1=1 ");
-
-        if (!Util.isEmpty(fornecedorDTO.getNome())) {
-            jpql.append(" AND fornecedor.razaoSocial = :razaoSocial ");
-            parametros.put("razaoSocial", fornecedorDTO.getNome());
-        }
-        if (!Util.isEmpty(fornecedorDTO.getCnpj())) {
-            jpql.append(" AND fornecedor.cpfCnpj = :cpfCnpj ");
-            parametros.put("cpfCnpj", fornecedorDTO.getCnpj());
-        }
-        if (fornecedorDTO.getStatus() != null) {
-            jpql.append(" AND fornecedor.situacao = :situacao ");
-            parametros.put("situacao", fornecedorDTO.getStatus());
-        }
-
-        jpql.append(" ORDER BY fornecedor.razaoSocial ASC ");
-
-        TypedQuery<Fornecedor> query = entityManager.createQuery(jpql.toString(), Fornecedor.class);
-        parametros.entrySet().forEach(parametro -> query.setParameter(parametro.getKey(), parametro.getValue()));
-        return query.getResultList();
-    }
+//    @Override
+//    public List<Fornecedor> findAllByFiltro(FornecedorDTO fornecedorDTO) {
+//        Map<String, Object> parametros = new HashMap<>();
+//        StringBuilder jpql = new StringBuilder();
+//        jpql.append(" SELECT DISTINCT fornecedor FROM Fornecedor fornecedor");
+//        jpql.append(" WHERE 1=1 ");
+//
+//        if (!Util.isEmpty(fornecedorDTO.getNome())) {
+//            jpql.append(" AND fornecedor.razaoSocial = :razaoSocial ");
+//            parametros.put("razaoSocial", fornecedorDTO.getNome());
+//        }
+//        if (!Util.isEmpty(fornecedorDTO.getCnpj())) {
+//            jpql.append(" AND fornecedor.cpfCnpj = :cpfCnpj ");
+//            parametros.put("cpfCnpj", fornecedorDTO.getCnpj());
+//        }
+//        if (fornecedorDTO.getStatus() != null) {
+//            jpql.append(" AND fornecedor.situacao = :situacao ");
+//            parametros.put("situacao", fornecedorDTO.getStatus());
+//        }
+//
+//        jpql.append(" ORDER BY fornecedor.razaoSocial ASC ");
+//
+//        TypedQuery<Fornecedor> query = entityManager.createQuery(jpql.toString(), Fornecedor.class);
+//        parametros.entrySet().forEach(parametro -> query.setParameter(parametro.getKey(), parametro.getValue()));
+//        return query.getResultList();
+//    }
 }

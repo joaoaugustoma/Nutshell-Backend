@@ -4,12 +4,16 @@ import com.ueg.nutshellbackend.application.dto.FornecedorDTO;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
 import com.ueg.nutshellbackend.application.model.Fornecedor;
 import com.ueg.nutshellbackend.application.repository.fornecedor.FornecedorRepository;
+import com.ueg.nutshellbackend.common.exception.BusinessException;
+import com.ueg.nutshellbackend.common.exception.MessageCode;
+import com.ueg.nutshellbackend.common.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Service()
@@ -32,6 +36,9 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
     protected void prepararEdicao(Fornecedor fornecedor) {
         Fornecedor fornecedorExistente = listarById(fornecedor.getIdPessoa());
 
+        validarCnpj(fornecedor.getCnpj());
+        validarFornecedorDuplicadoPorCnpj(fornecedor.getCnpj());
+
         fornecedor.setStatus(fornecedorExistente.getStatus());
         fornecedor.setDataCadastro(fornecedorExistente.getDataCadastro());
         fornecedor.setDataAtualizacao(LocalDate.now());
@@ -39,7 +46,8 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
 
     @Override
     protected void prepararInclusao(Fornecedor fornecedor) {
-        validarFornecedorDuplicadoPorCnpj(fornecedor);
+        validarCnpj(fornecedor.getCnpj());
+        validarFornecedorDuplicadoPorCnpj(fornecedor.getCnpj());
 
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
         fornecedor.setDataCadastro(LocalDate.now());
@@ -51,20 +59,35 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
         //TODO implementar validação de campos obrigatorios
     }
 
-    public void validarFornecedorDuplicadoPorCnpj(Fornecedor fornecedor) {
-        //TODO implementar validação de cnpj duplicado
-    }
 
     public Fornecedor inativar(Long idPessoa) {
-        //TODO inativar fornecedor
-        return null;
+        Fornecedor fornecedor = fornecedorRepository.getById(idPessoa);
+        fornecedor.setStatus(StatusAtivoInativo.INATIVO);
+
+        return fornecedor;
     }
 
     public Fornecedor ativar(Long idPessoa) {
-        //TODO ativar fornecedor
-        return null;
+        Fornecedor fornecedor = fornecedorRepository.getById(idPessoa);
+        fornecedor.setStatus(StatusAtivoInativo.ATIVO);
+
+        return fornecedor;
     }
 
-    public void validarCnpj(String cnpj) {
+    private void validarFornecedorDuplicadoPorCnpj(String cnpj) {
+        Fornecedor fornecedorByCnpj = fornecedorRepository.findByCnpj(cnpj);
+        Long count = fornecedorRepository.countByCnpj(cnpj);
+
+        if ( (count > BigDecimal.ONE.longValue() && fornecedorByCnpj.getIdPessoa()!=null) ||
+                (count > BigDecimal.ZERO.longValue() && fornecedorByCnpj.getIdPessoa()==null)
+        ) {
+            throw new BusinessException(MessageCode.ERRO_CNPJ_EM_USO);
+        }
+    }
+
+    private void validarCnpj(String cnpj) {
+        if (!Util.isCnpjValido(cnpj)) {
+            throw new BusinessException(MessageCode.ERRO_CNPJ_INVALIDO);
+        }
     }
 }

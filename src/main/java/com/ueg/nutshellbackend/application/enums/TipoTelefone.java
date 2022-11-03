@@ -1,7 +1,5 @@
 package com.ueg.nutshellbackend.application.enums;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 
 public enum TipoTelefone {

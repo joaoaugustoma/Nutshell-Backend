@@ -4,14 +4,10 @@ import com.ueg.nutshellbackend.application.configuration.Constante;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
 import com.ueg.nutshellbackend.application.enums.converter.StatusAtivoInativoConverter;
 import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
-import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Getter
-@Setter
-@RequiredArgsConstructor
 @SequenceGenerator(name = "S_PESSOA", sequenceName = "S_PESSOA", allocationSize = 1, schema = Constante.DATABASE_OWNER)
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity(name = "PESSOA")
@@ -25,7 +21,6 @@ public class Pessoa extends GenericTabela {
     @Column(name = "NOME", nullable = false)
     private String nome;
 
-    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Telefone> telefones;
 
@@ -47,4 +42,61 @@ public class Pessoa extends GenericTabela {
 //
 //    @Column(name = "ESTADO", nullable = false)
 //    private Estado estado;
+
+
+    public Long getIdPessoa() {
+        return idPessoa;
+    }
+
+    public void setIdPessoa(Long idPessoa) {
+        this.idPessoa = idPessoa;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Set<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(Set<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public StatusAtivoInativo getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusAtivoInativo status) {
+        this.status = status;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 }

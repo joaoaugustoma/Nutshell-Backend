@@ -1,16 +1,13 @@
 package com.ueg.nutshellbackend.application.enums;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 
-@Getter
 public enum StatusAtivoInativo {
-    ATIVO("1", "Ativo"),
-    INATIVO("1", "Inativo");
+    ATIVO("A", "Ativo"),
+    INATIVO("I", "Inativo");
 
-    private String id;
-    private String descricao;
+    private final String id;
+    private final String descricao;
 
     StatusAtivoInativo(final String id, final String descricao) {
         this.id = id;
@@ -23,5 +20,13 @@ public enum StatusAtivoInativo {
 
     public static StatusAtivoInativo getById(final boolean id) {
         return id ? StatusAtivoInativo.ATIVO : StatusAtivoInativo.INATIVO;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 public interface FornecedorRepositoryCustom  {
 
     //TODO findAllByFiltro(FornecedorDTO fornecedorDTO)
-    public List<Fornecedor> findAllByFiltro(FornecedorDTO fornecedorDTO);
+//    List<Fornecedor> findAllByFiltro(FornecedorDTO fornecedorDTO);
 }

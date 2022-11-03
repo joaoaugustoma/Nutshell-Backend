@@ -92,10 +92,4 @@ public class FornecedorController {
         fornecedorService.ativar(idPessoa);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping(path = "cnpj/valido/{cnpj}")
-    public ResponseEntity<?> validarCpfCnpj(@PathVariable final String cnpj) {
-        fornecedorService.validarCnpj(cnpj);
-        return ResponseEntity.ok().build();
-    }
 }

@@ -3,17 +3,14 @@ package com.ueg.nutshellbackend.application.model;
 import com.ueg.nutshellbackend.application.configuration.Constante;
 import com.ueg.nutshellbackend.application.enums.TipoTelefone;
 import com.ueg.nutshellbackend.application.enums.converter.TipoTelefoneConverter;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "TELEFONE", schema= Constante.DATABASE_OWNER)
-@EqualsAndHashCode(of = { "ddd", "numero" })
 @SequenceGenerator(name = "S_TELEFONE", sequenceName = "S_TELEFONE", allocationSize = 1, schema = Constante.DATABASE_OWNER)
-public @Data class Telefone implements Serializable {
+public class Telefone implements Serializable {
     private static final long serialVersionUID = -3928643077340896948L;
 
     @Id
@@ -34,4 +31,44 @@ public @Data class Telefone implements Serializable {
 
     @Column(name = "DDD_TELEFONE", length = 5)
     private Long ddd;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public TipoTelefone getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoTelefone tipo) {
+        this.tipo = tipo;
+    }
+
+    public Long getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(Long ddd) {
+        this.ddd = ddd;
+    }
 }

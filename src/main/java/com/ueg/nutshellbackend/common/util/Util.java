@@ -88,4 +88,11 @@ public class Util {
         return build.toString();
     }
 
+    public static boolean isCnpjValido(String cnpj) {
+        if (cnpj.length() == 14) {
+            return Boolean.TRUE;
+        }else{
+            return Boolean.FALSE;
+        }
+    }
 }
