@@ -2,8 +2,10 @@ package com.ueg.nutshellbackend.application.model;
 
 import com.ueg.nutshellbackend.application.configuration.Constante;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
+import com.ueg.nutshellbackend.application.enums.converter.EnderecoConverter;
 import com.ueg.nutshellbackend.application.enums.converter.StatusAtivoInativoConverter;
 import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -22,27 +24,16 @@ public class Pessoa extends GenericTabela {
     private String nome;
 
     @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Telefone> telefones;
-
-    @Column(name = "EMAIL", nullable = false)
-    private String email;
+    @Column(name = "CONTATOS", nullable = false)
+    private Set<Contato> contatos;
 
     @Convert(converter = StatusAtivoInativoConverter.class)
     @Column(name = "STATUS", nullable = false, length = 1)
     private StatusAtivoInativo status;
 
-    @Column(name = "CEP", nullable = false)
-    private String cep;
-
-    @Column(name = "ENDERECO", nullable = false)
-    private String endereco;
-
-//    @Column(name = "CIDADE", nullable = false)
-//    private Cidade cidade;
-//
-//    @Column(name = "ESTADO", nullable = false)
-//    private Estado estado;
-
+    @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "ENDERECOS", nullable = false)
+    private Set<Endereco> enderecos;
 
     public Long getIdPessoa() {
         return idPessoa;
@@ -60,20 +51,12 @@ public class Pessoa extends GenericTabela {
         this.nome = nome;
     }
 
-    public Set<Telefone> getTelefones() {
-        return telefones;
+    public Set<Contato> getContatos() {
+        return contatos;
     }
 
-    public void setTelefones(Set<Telefone> telefones) {
-        this.telefones = telefones;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setContatos(Set<Contato> contatos) {
+        this.contatos = contatos;
     }
 
     public StatusAtivoInativo getStatus() {
@@ -84,19 +67,11 @@ public class Pessoa extends GenericTabela {
         this.status = status;
     }
 
-    public String getCep() {
-        return cep;
+    public Set<Endereco> getEnderecos() {
+        return enderecos;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setEnderecos(Set<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 }

@@ -1,5 +1,6 @@
 package com.ueg.nutshellbackend.application;
 
+import com.ueg.nutshellbackend.application.enums.IndicadorInscricaoEstadual;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
 import com.ueg.nutshellbackend.application.model.Fornecedor;
 import com.ueg.nutshellbackend.application.repository.fornecedor.FornecedorRepository;
@@ -43,37 +44,29 @@ public class AppStartupRunner implements ApplicationRunner {
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setIdPessoa(1L);
         fornecedor.setNome("SAFEWARE TECNOLOGIA LTDA");
-        fornecedor.setEmail("unikasistemas@gmail.com");
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        fornecedor.setCep("7500000");
-        fornecedor.setEndereco("AVENIDA SENADOR JOSE LOURENCO DIAS, 1140");
+        fornecedor.setEnderecos(new HashSet<>());
         fornecedor.setCnpj("08103165000109");
         fornecedor.setInscricaoEstadual("388.108.598.269");
         fornecedor.setNomeFantasia("UNIKA SISTEMAS");
         fornecedor.setDataCadastro(LocalDate.of(2021, 10, 19));
         fornecedor.setDataAtualizacao(LocalDate.now());
-        fornecedor.setTelefones(new HashSet<>());
-
-//      fornecedor.setCidade(Cidade.ANAPOLIS)
-//      fornecedor.setEstado(Cidade.GOIAS)
+        fornecedor.setContatos(new HashSet<>());
+        fornecedor.setInscricaoMunicipal("388.108.598.269");
+        fornecedor.setIndicadorInscricaoEstadual(IndicadorInscricaoEstadual.CONTRIBUINTE);
 
         fornecedorRepository.save(fornecedor);
 
         fornecedor.setIdPessoa(2L);
         fornecedor.setNome("uau");
-        fornecedor.setEmail("SIS@SIS.COM");
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        fornecedor.setCep("7512312");
-        fornecedor.setEndereco("AVENIDA SASUKE");
+        fornecedor.setEnderecos(new HashSet<>());
         fornecedor.setCnpj("00000000000001");
         fornecedor.setInscricaoEstadual("123.123.123.123");
         fornecedor.setNomeFantasia("UNIKA");
         fornecedor.setDataCadastro(LocalDate.of(2021, 10, 24));
         fornecedor.setDataAtualizacao(LocalDate.now());
-        fornecedor.setTelefones(new HashSet<>());
-
-//      fornecedor.setCidade(Cidade.ANAPOLIS)
-//      fornecedor.setEstado(Cidade.GOIAS)
+        fornecedor.setContatos(new HashSet<>());
 
         fornecedorRepository.save(fornecedor);
 

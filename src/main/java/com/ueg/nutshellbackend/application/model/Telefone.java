@@ -5,22 +5,21 @@ import com.ueg.nutshellbackend.application.enums.TipoTelefone;
 import com.ueg.nutshellbackend.application.enums.converter.TipoTelefoneConverter;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "TELEFONE", schema= Constante.DATABASE_OWNER)
 @SequenceGenerator(name = "S_TELEFONE", sequenceName = "S_TELEFONE", allocationSize = 1, schema = Constante.DATABASE_OWNER)
 public class Telefone implements Serializable {
+
+    @Serial
     private static final long serialVersionUID = -3928643077340896948L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_TELEFONE")
     @Column(name = "ID_TELEFONE", nullable = false)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA", nullable = false)
-    private Pessoa pessoa;
 
     @Column(name = "NUMR_TELEFONE_USUARIO", length = 11, nullable = false)
     private String numero;
@@ -38,14 +37,6 @@ public class Telefone implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     public String getNumero() {

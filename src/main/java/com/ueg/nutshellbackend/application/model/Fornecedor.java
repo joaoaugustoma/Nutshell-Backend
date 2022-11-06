@@ -7,10 +7,10 @@ import java.time.LocalDate;
 @Entity(name = "FORNECEDOR")
 public class Fornecedor extends PessoaJuridica{
 
-    @Column(name = "DATA_CADASTRO")
+    @Column(name = "DATA_CADASTRO", nullable = false)
     private LocalDate dataCadastro;
 
-    @Column(name = "DATA_ATUALIZACAO")
+    @Column(name = "DATA_ATUALIZACAO", nullable = false)
     private LocalDate dataAtualizacao;
 
     public LocalDate getDataCadastro() {
