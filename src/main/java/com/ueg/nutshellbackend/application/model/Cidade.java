@@ -15,9 +15,6 @@ public class Cidade {
     @Column(nullable = false, length = 200, name = "NOME")
     private String nome;
 
-    @Column(nullable = false, name = "CODIGO_IBGE")
-    private Integer codigoIbge;
-
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
@@ -31,14 +28,6 @@ public class Cidade {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Integer getCodigoIbge() {
-        return codigoIbge;
-    }
-
-    public void setCodigoIbge(Integer codigoIbge) {
-        this.codigoIbge = codigoIbge;
     }
 
     public Estado getEstado() {
