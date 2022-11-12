@@ -2,7 +2,10 @@ package com.ueg.nutshellbackend.application;
 
 import com.ueg.nutshellbackend.application.enums.IndicadorInscricaoEstadual;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
+import com.ueg.nutshellbackend.application.model.Cidade;
+import com.ueg.nutshellbackend.application.model.Endereco;
 import com.ueg.nutshellbackend.application.model.Fornecedor;
+import com.ueg.nutshellbackend.application.repository.endereco.CidadeRepository;
 import com.ueg.nutshellbackend.application.repository.fornecedor.FornecedorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,20 +23,15 @@ public class AppStartupRunner implements ApplicationRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppStartupRunner.class);
 
-    @Value("${spring.jpa.hibernate.ddl-auto}")
-    private String ddlAuto;
-
-
     @Autowired
     FornecedorRepository fornecedorRepository;
 
+    @Autowired
+    CidadeRepository cidadeRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        LOG.info("Application started with option names : {}",
-                args.getOptionNames());
-        LOG.info("spring.jpa.hibernate.ddl-auto={}",ddlAuto);
-
-        initiateDemoInstance();
+//        initiateDemoInstance();
     }
 
     private void initiateDemoInstance() {
@@ -41,11 +39,13 @@ public class AppStartupRunner implements ApplicationRunner {
     }
 
     private void fornecedorInstance() {
+        Endereco endereco = enderecoInstance();
+
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setIdPessoa(1L);
         fornecedor.setNome("SAFEWARE TECNOLOGIA LTDA");
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        fornecedor.setEnderecos(new HashSet<>());
+        fornecedor.setEndereco(endereco);
         fornecedor.setCnpj("08103165000109");
         fornecedor.setInscricaoEstadual("388.108.598.269");
         fornecedor.setNomeFantasia("UNIKA SISTEMAS");
@@ -57,10 +57,12 @@ public class AppStartupRunner implements ApplicationRunner {
 
         fornecedorRepository.save(fornecedor);
 
+        endereco.setId(2L);
+
         fornecedor.setIdPessoa(2L);
         fornecedor.setNome("uau");
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        fornecedor.setEnderecos(new HashSet<>());
+        fornecedor.setEndereco(endereco);
         fornecedor.setCnpj("00000000000001");
         fornecedor.setInscricaoEstadual("123.123.123.123");
         fornecedor.setNomeFantasia("UNIKA");
@@ -70,5 +72,21 @@ public class AppStartupRunner implements ApplicationRunner {
 
         fornecedorRepository.save(fornecedor);
 
+    }
+
+    private Endereco enderecoInstance(){
+        Endereco endereco = new Endereco();
+        endereco.setId(1L);
+        endereco.setBairro("Setor Central");
+        endereco.setNumeroEndereco("1440");
+        endereco.setCep("75020010");
+        endereco.setLogradouro("Avenidade Contorno");
+        endereco.setComplemento("Sala 501");
+        endereco.setCidade(cidadeInstance());
+
+        return endereco;
+    }
+    private Cidade cidadeInstance(){
+        return cidadeRepository.getReferenceById(2007L);
     }
 }

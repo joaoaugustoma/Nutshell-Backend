@@ -2,10 +2,8 @@ package com.ueg.nutshellbackend.application.model;
 
 import com.ueg.nutshellbackend.application.configuration.Constante;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
-import com.ueg.nutshellbackend.application.enums.converter.EnderecoConverter;
 import com.ueg.nutshellbackend.application.enums.converter.StatusAtivoInativoConverter;
 import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -31,9 +29,9 @@ public class Pessoa extends GenericTabela {
     @Column(name = "STATUS", nullable = false, length = 1)
     private StatusAtivoInativo status;
 
-    @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "ENDERECOS", nullable = false)
-    private Set<Endereco> enderecos;
+    @OneToOne
+    @JoinColumn(name = "ID_ENDERECO", nullable = false)
+    private Endereco endereco;
 
     public Long getIdPessoa() {
         return idPessoa;
@@ -67,11 +65,11 @@ public class Pessoa extends GenericTabela {
         this.status = status;
     }
 
-    public Set<Endereco> getEnderecos() {
-        return enderecos;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecos(Set<Endereco> enderecos) {
-        this.enderecos = enderecos;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

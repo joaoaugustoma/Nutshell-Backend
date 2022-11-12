@@ -3,7 +3,9 @@ package com.ueg.nutshellbackend.application.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ueg.nutshellbackend.common.util.Util;
 
-public class TelefoneDTO {
+import java.io.Serializable;
+
+public class TelefoneDTO implements Serializable {
 
     private String id;
     private String idPessoa;

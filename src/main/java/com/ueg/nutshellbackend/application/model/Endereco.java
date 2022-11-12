@@ -19,27 +19,24 @@ public class Endereco implements Serializable {
     @Column(name = "ID_ENDERECO")
     private Long id;
 
-    @Column(nullable = true, length = 100, name = "LOGRADOURO")
+    @Column(nullable = false, length = 100, name = "LOGRADOURO")
     private String logradouro;
 
-    @Column(nullable = true, length = 10, name = "NUMERO_ENDERECO")
+    @Column(nullable = false, length = 10, name = "NUMERO_ENDERECO")
     private String numeroEndereco;
 
-    @Column(nullable = true, length = 150, name = "COMPLEMENTO")
+    @Column(nullable = false, length = 150, name = "COMPLEMENTO")
     private String complemento;
 
-    @Column(nullable = true, length = 100, name = "BAIRRO")
+    @Column(nullable = false, length = 100, name = "BAIRRO")
     private String bairro;
 
-    @ManyToOne(optional = true, fetch= FetchType.LAZY)
+    @ManyToOne(optional = false, fetch= FetchType.LAZY)
     @JoinColumn(name = "ID_CIDADE")
     private Cidade cidade;
 
-    @Column(nullable = true, length = 10, name = "CEP")
+    @Column(nullable = false, length = 10, name = "CEP")
     private String cep;
-
-    @Column(nullable = false, name = "ENDERECO_PRINCIPAL")
-    private Boolean isEnderecoPrincipal;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA", nullable = false)
@@ -99,14 +96,6 @@ public class Endereco implements Serializable {
 
     public void setCep(String cep) {
         this.cep = cep;
-    }
-
-    public Boolean getEnderecoPrincipal() {
-        return isEnderecoPrincipal;
-    }
-
-    public void setEnderecoPrincipal(Boolean enderecoPrincipal) {
-        isEnderecoPrincipal = enderecoPrincipal;
     }
 
     public Pessoa getPessoa() {

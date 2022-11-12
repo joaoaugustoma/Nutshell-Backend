@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service()
 @Transactional(propagation = Propagation.REQUIRED)
@@ -61,14 +62,14 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
 
 
     public Fornecedor inativar(Long idPessoa) {
-        Fornecedor fornecedor = fornecedorRepository.getById(idPessoa);
+        Fornecedor fornecedor = fornecedorRepository.getReferenceById(idPessoa);
         fornecedor.setStatus(StatusAtivoInativo.INATIVO);
 
         return fornecedor;
     }
 
     public Fornecedor ativar(Long idPessoa) {
-        Fornecedor fornecedor = fornecedorRepository.getById(idPessoa);
+        Fornecedor fornecedor = fornecedorRepository.getReferenceById(idPessoa);
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
 
         return fornecedor;
@@ -89,5 +90,10 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
         if (!Util.isCnpjValido(cnpj)) {
             throw new BusinessException(MessageCode.ERRO_CNPJ_INVALIDO);
         }
+    }
+
+    public List<Fornecedor> listarByFiltro(FornecedorDTO filtroDTO) {
+//        return fornecedorRepository.listarByFiltro(filtroDTO);
+        return null;
     }
 }

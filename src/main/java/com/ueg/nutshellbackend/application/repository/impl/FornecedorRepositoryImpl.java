@@ -18,29 +18,31 @@ public class FornecedorRepositoryImpl implements FornecedorRepositoryCustom {
     private EntityManager entityManager;
 
 //    @Override
-//    public List<Fornecedor> findAllByFiltro(FornecedorDTO fornecedorDTO) {
+//    public List<Fornecedor> listarByFiltro(FornecedorDTO filtroDTO) {
 //        Map<String, Object> parametros = new HashMap<>();
 //        StringBuilder jpql = new StringBuilder();
 //        jpql.append(" SELECT DISTINCT fornecedor FROM Fornecedor fornecedor");
 //        jpql.append(" WHERE 1=1 ");
 //
-//        if (!Util.isEmpty(fornecedorDTO.getNome())) {
+//        if (!Util.isEmpty(filtroDTO.getNome())) {
 //            jpql.append(" AND fornecedor.razaoSocial = :razaoSocial ");
-//            parametros.put("razaoSocial", fornecedorDTO.getNome());
+//            parametros.put("razaoSocial", filtroDTO.getNome());
 //        }
-//        if (!Util.isEmpty(fornecedorDTO.getCnpj())) {
+//        if (!Util.isEmpty(filtroDTO.getCnpj())) {
 //            jpql.append(" AND fornecedor.cpfCnpj = :cpfCnpj ");
-//            parametros.put("cpfCnpj", fornecedorDTO.getCnpj());
+//            parametros.put("cpfCnpj", filtroDTO.getCnpj());
 //        }
-//        if (fornecedorDTO.getStatus() != null) {
+//        if (filtroDTO.getStatus() != null) {
 //            jpql.append(" AND fornecedor.situacao = :situacao ");
-//            parametros.put("situacao", fornecedorDTO.getStatus());
+//            parametros.put("situacao", filtroDTO.getStatus());
 //        }
 //
 //        jpql.append(" ORDER BY fornecedor.razaoSocial ASC ");
 //
 //        TypedQuery<Fornecedor> query = entityManager.createQuery(jpql.toString(), Fornecedor.class);
-//        parametros.entrySet().forEach(parametro -> query.setParameter(parametro.getKey(), parametro.getValue()));
+//        parametros.forEach(query::setParameter);
 //        return query.getResultList();
+//
+//        return null;
 //    }
 }

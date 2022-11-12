@@ -11,8 +11,7 @@ public class PessoaDTO implements Serializable {
     private Set<Telefone> telefones;
     private String email;
     private String status;
-    private String cep;
-    private String endereco;
+    private EnderecoDTO endereco;
 
     public Long getIdPessoa() {
         return idPessoa;
@@ -54,19 +53,11 @@ public class PessoaDTO implements Serializable {
         this.status = status;
     }
 
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getEndereco() {
+    public EnderecoDTO getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(EnderecoDTO endereco) {
         this.endereco = endereco;
     }
 }

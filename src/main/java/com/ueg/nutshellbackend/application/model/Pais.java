@@ -21,4 +21,28 @@ public class Pais {
     @OneToMany(mappedBy = "pais", fetch = FetchType.LAZY)
     @Column(name = "ID_PAIS")
     private Set<Estado> estados;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Set<Estado> getEstados() {
+        return estados;
+    }
+
+    public void setEstados(Set<Estado> estados) {
+        this.estados = estados;
+    }
 }

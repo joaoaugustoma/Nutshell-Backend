@@ -19,9 +19,6 @@ public class Cidade {
     @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
 
-    @Column(nullable = false, name = "DATA_ATUALIZACAO")
-    private LocalDate dataAtualizacao;
-
     public String getNome() {
         return nome;
     }
@@ -36,14 +33,6 @@ public class Cidade {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
-    }
-
-    public LocalDate getDataAtualizacao() {
-        return dataAtualizacao;
-    }
-
-    public void setDataAtualizacao(LocalDate dataAtualizacao) {
-        this.dataAtualizacao = dataAtualizacao;
     }
 
     public Long getId() {
