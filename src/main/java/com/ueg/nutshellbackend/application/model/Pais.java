@@ -18,7 +18,7 @@ public class Pais {
     private String nome;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "pais", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pais", fetch = FetchType.EAGER)
     @Column(name = "ID_PAIS")
     private Set<Estado> estados;
 

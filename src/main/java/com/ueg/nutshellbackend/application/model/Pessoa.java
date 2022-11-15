@@ -10,7 +10,8 @@ import java.util.Set;
 
 @SequenceGenerator(name = "S_PESSOA", sequenceName = "S_PESSOA", allocationSize = 1, schema = Constante.DATABASE_OWNER)
 @Inheritance(strategy = InheritanceType.JOINED)
-@Entity(name = "PESSOA")
+@Entity()
+@Table(name = "PESSOA")
 public class Pessoa extends GenericTabela {
 
     @Id
@@ -29,9 +30,9 @@ public class Pessoa extends GenericTabela {
     @Column(name = "STATUS", nullable = false, length = 1)
     private StatusAtivoInativo status;
 
-    @OneToOne
-    @JoinColumn(name = "ID_ENDERECO", nullable = false)
-    private Endereco endereco;
+    @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "ENDERECOS", nullable = false)
+    private Set<Endereco> enderecos;
 
     public Long getIdPessoa() {
         return idPessoa;
@@ -65,11 +66,11 @@ public class Pessoa extends GenericTabela {
         this.status = status;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public Set<Endereco> getEnderecos() {
+        return enderecos;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEnderecos(Set<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 }
