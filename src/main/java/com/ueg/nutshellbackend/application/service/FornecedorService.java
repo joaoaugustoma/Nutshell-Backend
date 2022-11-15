@@ -23,11 +23,6 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
-//    @Override
-//    public List<Fornecedor> listarByFiltro(FornecedorDTO tabela) {
-//        return null;
-//    }
-
     @Override
     protected JpaRepository<Fornecedor, Long> getRepository() {
         return  this.fornecedorRepository;
@@ -37,12 +32,42 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
     protected void prepararEdicao(Fornecedor fornecedor) {
         Fornecedor fornecedorExistente = listarById(fornecedor.getIdPessoa());
 
-        validarCnpj(fornecedor.getCnpj());
-        validarFornecedorDuplicadoPorCnpj(fornecedor.getCnpj());
+        validarCnpj(fornecedorExistente.getCnpj());
+        validarFornecedorDuplicadoPorCnpj(fornecedorExistente.getCnpj());
 
-        fornecedor.setStatus(fornecedorExistente.getStatus());
-        fornecedor.setDataCadastro(fornecedorExistente.getDataCadastro());
-        fornecedor.setDataAtualizacao(LocalDate.now());
+        if(fornecedor.getNome() == null){
+            fornecedor.setNome(fornecedorExistente.getNome());
+        }
+        if(fornecedor.getStatus() == null){
+            fornecedor.setStatus(fornecedorExistente.getStatus());
+        }
+        if(fornecedor.getDataCadastro() == null){
+            fornecedor.setDataCadastro(fornecedorExistente.getDataCadastro());
+        }
+        if(fornecedor.getDataAtualizacao() == null){
+            fornecedor.setDataAtualizacao(fornecedorExistente.getDataAtualizacao());
+        }
+        if(fornecedor.getCnpj() == null){
+            fornecedor.setCnpj(fornecedorExistente.getCnpj());
+        }
+        if(fornecedor.getNomeFantasia() == null){
+            fornecedor.setNomeFantasia(fornecedorExistente.getNomeFantasia());
+        }
+        if(fornecedor.getInscricaoEstadual() == null){
+            fornecedor.setInscricaoEstadual(fornecedorExistente.getInscricaoEstadual());
+        }
+        if(fornecedor.getInscricaoMunicipal() == null){
+            fornecedor.setInscricaoMunicipal(fornecedorExistente.getInscricaoMunicipal());
+        }
+        if(fornecedor.getIndicadorInscricaoEstadual() == null){
+            fornecedor.setIndicadorInscricaoEstadual(fornecedorExistente.getIndicadorInscricaoEstadual());
+        }
+        if(fornecedor.getContatos() == null){
+            fornecedor.setContatos(fornecedorExistente.getContatos());
+        }
+        if(fornecedor.getEnderecos() == null){
+            fornecedor.setEnderecos(fornecedorExistente.getEnderecos());
+        }
     }
 
     @Override
@@ -93,7 +118,6 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
     }
 
     public List<Fornecedor> listarByFiltro(FornecedorDTO filtroDTO) {
-//        return fornecedorRepository.listarByFiltro(filtroDTO);
-        return null;
+        return fornecedorRepository.findAllByFiltro(filtroDTO);
     }
 }

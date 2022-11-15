@@ -6,6 +6,8 @@ public class PessoaJuridicaDTO extends PessoaDTO implements Serializable {
     private String cnpj;
     private String nomeFantasia;
     private String inscricaoEstadual;
+    private String inscricaoMunicipal;
+    private String indicadorInscricaoEstadual;
 
     public String getCnpj() {
         return cnpj;
@@ -29,5 +31,21 @@ public class PessoaJuridicaDTO extends PessoaDTO implements Serializable {
 
     public void setInscricaoEstadual(String inscricaoEstadual) {
         this.inscricaoEstadual = inscricaoEstadual;
+    }
+
+    public String getIndicadorInscricaoEstadual() {
+        return indicadorInscricaoEstadual;
+    }
+
+    public void setIndicadorInscricaoEstadual(String indicadorInscricaoEstadual) {
+        this.indicadorInscricaoEstadual = indicadorInscricaoEstadual;
+    }
+
+    public String getInscricaoMunicipal() {
+        return inscricaoMunicipal;
+    }
+
+    public void setInscricaoMunicipal(String inscricaoMunicipal) {
+        this.inscricaoMunicipal = inscricaoMunicipal;
     }
 }

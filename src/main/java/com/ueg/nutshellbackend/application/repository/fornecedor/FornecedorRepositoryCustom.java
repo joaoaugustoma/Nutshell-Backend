@@ -6,5 +6,5 @@ import com.ueg.nutshellbackend.application.model.Fornecedor;
 import java.util.List;
 
 public interface FornecedorRepositoryCustom  {
-//    List<Fornecedor> listarByFiltro(FornecedorDTO filtroDTO);
+    List<Fornecedor> findAllByFiltro(FornecedorDTO filtroDTO);
 }

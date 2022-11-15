@@ -3,14 +3,12 @@ package com.ueg.nutshellbackend.application.model;
 import com.ueg.nutshellbackend.application.enums.IndicadorInscricaoEstadual;
 import com.ueg.nutshellbackend.application.enums.converter.IndicadorInscricaoEstadualConverter;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 
 
 @PrimaryKeyJoinColumn(name="idPessoa")
-@Entity(name = "PESSOA_JURIDICA")
+@Entity()
+@Table(name = "PESSOA_JURIDICA")
 public class PessoaJuridica extends Pessoa{
     @Column(name = "CNPJ", nullable = false)
     private String cnpj;

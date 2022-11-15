@@ -5,7 +5,7 @@ import com.ueg.nutshellbackend.application.model.Fornecedor;
 import org.mapstruct.Mapper;
 
 
-@Mapper(componentModel = "spring", uses = { StatusAtivoInativoMapper.class })
+@Mapper(componentModel = "spring", uses = { StatusAtivoInativoMapper.class, IndicadorInscricaoEstadualMapper.class })
 public interface FornecedorMapper {
 
     public FornecedorDTO toDTO(Fornecedor fornecedor);
