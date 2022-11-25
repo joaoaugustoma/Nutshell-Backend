@@ -12,8 +12,7 @@ public class IndicadorInscricaoEstadualMapper {
     public Integer asInteger(Integer valor){
         return switch (valor) {
             case 0 -> (IndicadorInscricaoEstadual.NAO_CONTRIBUINTE.getId());
-            case 1 -> (IndicadorInscricaoEstadual.CONSUMIDOR_FINAL.getId());
-            case 2 -> (IndicadorInscricaoEstadual.CONTRIBUINTE.getId());
+            case 1 -> (IndicadorInscricaoEstadual.CONTRIBUINTE.getId());
             default -> null;
         };
     }

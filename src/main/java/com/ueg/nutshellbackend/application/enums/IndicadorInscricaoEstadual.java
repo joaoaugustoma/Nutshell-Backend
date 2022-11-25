@@ -4,8 +4,7 @@ import java.util.Arrays;
 
 public enum IndicadorInscricaoEstadual {
     NAO_CONTRIBUINTE(0, "Não Contribuinte"),
-    CONSUMIDOR_FINAL(1, "Consumidor Final"),
-    CONTRIBUINTE(2, "Contribuinte");
+    CONTRIBUINTE(1, "Contribuinte");
 
     private final Integer id;
     private final String descricao;

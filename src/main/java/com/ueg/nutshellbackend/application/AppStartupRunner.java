@@ -41,7 +41,7 @@ public class AppStartupRunner implements ApplicationRunner {
     }
 
     private void initiateDemoInstance() {
-//        fornecedorInstance();
+        fornecedorInstance();
     }
 
     private void fornecedorInstance() {
