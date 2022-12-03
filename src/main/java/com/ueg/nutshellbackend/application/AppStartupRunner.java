@@ -5,12 +5,11 @@ import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
 import com.ueg.nutshellbackend.application.model.Cidade;
 import com.ueg.nutshellbackend.application.model.Endereco;
 import com.ueg.nutshellbackend.application.model.Fornecedor;
-import com.ueg.nutshellbackend.application.repository.endereco.CidadeRepository;
-import com.ueg.nutshellbackend.application.repository.fornecedor.FornecedorRepository;
+import com.ueg.nutshellbackend.application.repository.CidadeRepository;
+import com.ueg.nutshellbackend.application.repository.FornecedorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -31,7 +30,7 @@ public class AppStartupRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        initiateDemoInstance();
+        initiateDemoInstance();
     }
 
     private void initiateDemoInstance() {

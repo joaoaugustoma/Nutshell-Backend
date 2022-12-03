@@ -3,7 +3,7 @@ package com.ueg.nutshellbackend.application.service;
 import com.ueg.nutshellbackend.application.dto.FornecedorDTO;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
 import com.ueg.nutshellbackend.application.model.Fornecedor;
-import com.ueg.nutshellbackend.application.repository.fornecedor.FornecedorRepository;
+import com.ueg.nutshellbackend.application.repository.FornecedorRepository;
 import com.ueg.nutshellbackend.common.exception.BusinessException;
 import com.ueg.nutshellbackend.common.exception.MessageCode;
 import com.ueg.nutshellbackend.common.util.Util;
@@ -22,11 +22,6 @@ import java.util.List;
 public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO, Long> {
     @Autowired
     private FornecedorRepository fornecedorRepository;
-
-//    @Override
-//    public List<Fornecedor> listarByFiltro(FornecedorDTO tabela) {
-//        return null;
-//    }
 
     @Override
     protected JpaRepository<Fornecedor, Long> getRepository() {
@@ -93,7 +88,6 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
     }
 
     public List<Fornecedor> listarByFiltro(FornecedorDTO filtroDTO) {
-//        return fornecedorRepository.listarByFiltro(filtroDTO);
-        return null;
+        return fornecedorRepository.listarByFiltro(filtroDTO);
     }
 }
