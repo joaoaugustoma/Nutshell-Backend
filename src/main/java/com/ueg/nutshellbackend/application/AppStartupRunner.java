@@ -15,7 +15,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class AppStartupRunner implements ApplicationRunner {
@@ -44,7 +46,7 @@ public class AppStartupRunner implements ApplicationRunner {
         fornecedor.setIdPessoa(1L);
         fornecedor.setNome("SAFEWARE TECNOLOGIA LTDA");
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        fornecedor.setEndereco(endereco);
+        fornecedor.setEnderecos(Collections.singleton(endereco));
         fornecedor.setCnpj("08103165000109");
         fornecedor.setInscricaoEstadual("388.108.598.269");
         fornecedor.setNomeFantasia("UNIKA SISTEMAS");
@@ -61,7 +63,7 @@ public class AppStartupRunner implements ApplicationRunner {
         fornecedor.setIdPessoa(2L);
         fornecedor.setNome("uau");
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        fornecedor.setEndereco(endereco);
+        fornecedor.setEnderecos(Collections.singleton(endereco));
         fornecedor.setCnpj("00000000000001");
         fornecedor.setInscricaoEstadual("123.123.123.123");
         fornecedor.setNomeFantasia("UNIKA");
