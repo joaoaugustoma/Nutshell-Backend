@@ -15,7 +15,7 @@ public class Cidade {
     @Column(nullable = false, length = 200, name = "NOME")
     private String nome;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
 

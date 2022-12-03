@@ -19,11 +19,11 @@ public class  Estado {
     @Column(nullable = false, length = 2, name = "UF")
     private String uf;
 
-    @OneToMany(mappedBy = "estado", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "estado", fetch = FetchType.EAGER)
     @Column(name = "ID_ESTADO")
     private Set<Cidade> cidades;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_PAIS")
     private Pais pais;
 

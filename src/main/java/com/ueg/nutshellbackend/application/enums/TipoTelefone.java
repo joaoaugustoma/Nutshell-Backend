@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 public enum TipoTelefone {
 
-    CELULAR(1L, "Celular"), RESIDENCIAL(2L, "Residencial"), COMERCIAL(3L, "Comercial");
+    CELULAR(1L, "Celular"),
+    RESIDENCIAL(2L, "Residencial"),
+    COMERCIAL(3L, "Comercial");
 
     private final Long id;
 

@@ -1,1 +1,1 @@
-insert into pais(id_pais, nome) values(1, 'Brasil');
+INSERT INTO PAIS(id_pais, NOME) VALUES(1,'Brasil');

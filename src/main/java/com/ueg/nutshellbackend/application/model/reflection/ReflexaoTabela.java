@@ -32,9 +32,9 @@ public class ReflexaoTabela {
     public static Object getIdValue(GenericTabela genericTabela
     ) {
         Field idField = getIdField(genericTabela);
-        String idMethodName = Util.getGetterMethodName(idField.getName());
+//        String idMethodName = Util.getGetterMethodName(idField.getName());
 
-        return Util.invokeGetMethod(genericTabela, idMethodName);
+        return Util.invokeGetMethod(genericTabela, idField.getName());
     }
 
     public static void validarParametroTab(GenericTabela genericTabela) {

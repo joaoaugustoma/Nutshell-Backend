@@ -31,7 +31,7 @@ public class Util {
             }
 
         } catch (NoSuchMethodException | SecurityException e) {
-            throw new RuntimeException("A classe: " + cls.getName() + " n�o possui o metodo: " + methodName + " com visibilidade p�blica, ou n�o existe!");
+            throw new RuntimeException("A classe: " + cls.getName() + " não possui o metodo: " + methodName + " com visibilidade pública, ou n�o existe!");
         } catch (IllegalAccessException |
                  IllegalArgumentException |
                  InvocationTargetException e) {

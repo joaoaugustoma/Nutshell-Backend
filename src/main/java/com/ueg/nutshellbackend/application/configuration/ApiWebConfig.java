@@ -16,7 +16,7 @@ public class ApiWebConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
+//        config.setAllowCredentials(true);
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod(HttpMethod.GET);
@@ -24,7 +24,7 @@ public class ApiWebConfig {
         config.addAllowedMethod(HttpMethod.PUT);
         config.addAllowedMethod(HttpMethod.DELETE);
         config.addAllowedMethod(HttpMethod.OPTIONS);
-        source.registerCorsConfiguration("/*", config);
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 
