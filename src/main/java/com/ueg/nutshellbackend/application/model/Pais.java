@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "PAIS", uniqueConstraints = {@UniqueConstraint(columnNames={"NOME"})})
+@Entity(name = "PAIS")
 public class Pais {
 
     @Id
@@ -17,10 +16,8 @@ public class Pais {
     @Column(nullable = false, length = 30, name = "NOME")
     private String nome;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "pais", fetch = FetchType.EAGER)
-    @Column(name = "ID_PAIS")
-    private Set<Estado> estados;
+    @OneToMany(mappedBy = "pais",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private Set<Estado> estadoSet;
 
     public Long getId() {
         return id;
@@ -38,11 +35,11 @@ public class Pais {
         this.nome = nome;
     }
 
-    public Set<Estado> getEstados() {
-        return estados;
+    public Set<Estado> getEstadoSet() {
+        return estadoSet;
     }
 
-    public void setEstados(Set<Estado> estados) {
-        this.estados = estados;
+    public void setEstadoSet(Set<Estado> estadoSet) {
+        this.estadoSet = estadoSet;
     }
 }

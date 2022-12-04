@@ -4,15 +4,15 @@ import java.util.Arrays;
 
 public enum TipoTelefone {
 
-    CELULAR(1L, "Celular"),
-    RESIDENCIAL(2L, "Residencial"),
-    COMERCIAL(3L, "Comercial");
+    CELULAR(1, "Celular"),
+    RESIDENCIAL(2, "Residencial"),
+    COMERCIAL(3, "Comercial");
 
-    private final Long id;
+    private final Integer id;
 
     private final String descricao;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -20,12 +20,12 @@ public enum TipoTelefone {
         return descricao;
     }
 
-    TipoTelefone(Long id, String descricao) {
+    TipoTelefone(Integer id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
 
-    public static TipoTelefone getById(final Long id) {
+    public static TipoTelefone getById(final Integer id) {
         return Arrays.stream(values()).filter(value -> value.getId().equals(id)).findFirst().orElse(null);
     }
 }

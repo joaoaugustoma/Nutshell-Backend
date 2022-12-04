@@ -6,8 +6,7 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "ENDERECO", schema= Constante.DATABASE_OWNER)
+@Entity(name = "ENDERECO")
 @SequenceGenerator(name = "S_ENDERECO", sequenceName = "S_ENDERECO", allocationSize = 1, schema = Constante.DATABASE_OWNER)
 public class Endereco implements Serializable {
 
@@ -31,16 +30,12 @@ public class Endereco implements Serializable {
     @Column(nullable = false, length = 100, name = "BAIRRO")
     private String bairro;
 
-    @ManyToOne(optional = false, fetch= FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "ID_CIDADE")
     private Cidade cidade;
 
     @Column(nullable = false, length = 10, name = "CEP")
     private String cep;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA", nullable = false)
-    private Pessoa pessoa;
 
     public Long getId() {
         return id;
@@ -98,11 +93,4 @@ public class Endereco implements Serializable {
         this.cep = cep;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
 }

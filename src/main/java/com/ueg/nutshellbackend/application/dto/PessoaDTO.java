@@ -9,8 +9,7 @@ import java.util.Set;
 public class PessoaDTO implements Serializable {
     private Long idPessoa;
     private String nome;
-    private Set<Contato> contatos;
-    private String email;
+    private Set<ContatoDTO> contatos;
     private String status;
     private EnderecoDTO endereco;
 
@@ -30,20 +29,12 @@ public class PessoaDTO implements Serializable {
         this.nome = nome;
     }
 
-    public Set<Contato> getContatos() {
+    public Set<ContatoDTO> getContatos() {
         return contatos;
     }
 
-    public void setContatos(Set<Contato> contatos) {
+    public void setContatos(Set<ContatoDTO> contatos) {
         this.contatos = contatos;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getStatus() {

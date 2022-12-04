@@ -9,9 +9,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @SequenceGenerator(name = "S_PESSOA", sequenceName = "S_PESSOA", allocationSize = 1, schema = Constante.DATABASE_OWNER)
-@Inheritance(strategy = InheritanceType.JOINED)
-@Entity()
-@Table(name = "PESSOA")
+@Inheritance(strategy=InheritanceType.JOINED)
+@Entity(name = "PESSOA")
 public class Pessoa extends GenericTabela {
 
     @Id
@@ -22,17 +21,16 @@ public class Pessoa extends GenericTabela {
     @Column(name = "NOME", nullable = false)
     private String nome;
 
-    @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "CONTATOS", nullable = false)
+    @OneToMany(mappedBy = "pessoa",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Contato> contatos;
 
     @Convert(converter = StatusAtivoInativoConverter.class)
     @Column(name = "STATUS", nullable = false, length = 1)
     private StatusAtivoInativo status;
 
-    @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "ENDERECOS", nullable = false)
-    private Set<Endereco> enderecos;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_ENDERECO")
+    private Endereco endereco;
 
     public Long getIdPessoa() {
         return idPessoa;
@@ -66,11 +64,11 @@ public class Pessoa extends GenericTabela {
         this.status = status;
     }
 
-    public Set<Endereco> getEnderecos() {
-        return enderecos;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecos(Set<Endereco> enderecos) {
-        this.enderecos = enderecos;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

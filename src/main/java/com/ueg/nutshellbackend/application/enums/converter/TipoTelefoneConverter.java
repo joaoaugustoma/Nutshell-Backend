@@ -6,15 +6,15 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter
-public class TipoTelefoneConverter implements AttributeConverter<TipoTelefone, Long> {
+public class TipoTelefoneConverter implements AttributeConverter<TipoTelefone, Integer> {
 
     @Override
-    public Long convertToDatabaseColumn(TipoTelefone tipoTelefone) {
+    public Integer convertToDatabaseColumn(TipoTelefone tipoTelefone) {
         return tipoTelefone != null ? tipoTelefone.getId() : null;
     }
 
     @Override
-    public TipoTelefone convertToEntityAttribute(Long id) {
+    public TipoTelefone convertToEntityAttribute(Integer id) {
         return TipoTelefone.getById(id);
     }
 

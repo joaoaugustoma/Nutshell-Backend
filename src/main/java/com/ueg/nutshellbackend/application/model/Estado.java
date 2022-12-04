@@ -4,8 +4,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Set;
 
-@Entity
-@Table(name = "ESTADO", uniqueConstraints = {@UniqueConstraint(columnNames={"NOME", "ID_PAIS"})})
+@Entity(name = "ESTADO")
 public class  Estado {
 
     @Id
@@ -19,13 +18,12 @@ public class  Estado {
     @Column(nullable = false, length = 2, name = "UF")
     private String uf;
 
-    @OneToMany(mappedBy = "estado", fetch = FetchType.EAGER)
-    @Column(name = "ID_ESTADO")
-    private Set<Cidade> cidades;
-
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "ID_PAIS")
     private Pais pais;
+
+    @OneToMany(mappedBy = "estado",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private Set<Cidade> cidadeSet;
 
     public Long getId() {
         return id;
@@ -51,20 +49,19 @@ public class  Estado {
         this.uf = uf;
     }
 
-
-    public Set<Cidade> getCidades() {
-        return cidades;
-    }
-
-    public void setCidades(Set<Cidade> cidades) {
-        this.cidades = cidades;
-    }
-
     public Pais getPais() {
         return pais;
     }
 
     public void setPais(Pais pais) {
         this.pais = pais;
+    }
+
+    public Set<Cidade> getCidadeSet() {
+        return cidadeSet;
+    }
+
+    public void setCidadeSet(Set<Cidade> cidadeSet) {
+        this.cidadeSet = cidadeSet;
     }
 }

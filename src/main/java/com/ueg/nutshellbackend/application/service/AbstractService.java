@@ -1,17 +1,11 @@
 package com.ueg.nutshellbackend.application.service;
 
-import com.ueg.nutshellbackend.application.model.Fornecedor;
 import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
 import com.ueg.nutshellbackend.common.exception.BusinessException;
 import com.ueg.nutshellbackend.common.exception.MessageCode;
-import com.ueg.nutshellbackend.common.exception.MessageResponse;
-import com.ueg.nutshellbackend.common.exception.NotFoundException;
-import org.aspectj.bridge.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +14,6 @@ public abstract class AbstractService<TABELA extends GenericTabela, TABELA_DTO, 
     EntityManager entityManager;
 
     public TABELA salvar(TABELA tabela){
-        validarCamposObrigatorios(tabela);
         if(validarIdNull(tabela)){
             prepararInclusao(tabela);
         }else {
@@ -28,6 +21,7 @@ public abstract class AbstractService<TABELA extends GenericTabela, TABELA_DTO, 
         }
 
         executarSalvar(tabela);
+        depoisSalvar(tabela);
         return tabela;
     }
 
@@ -64,6 +58,6 @@ public abstract class AbstractService<TABELA extends GenericTabela, TABELA_DTO, 
 
     protected abstract void prepararInclusao(TABELA tabela);
 
-    public abstract void validarCamposObrigatorios(TABELA tabela);
+    protected abstract void depoisSalvar(TABELA tabela);
 
 }

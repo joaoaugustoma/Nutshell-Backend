@@ -3,14 +3,8 @@ package com.ueg.nutshellbackend.application.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity()
-@Table(name = "FORNECEDOR")
+@Entity(name = "FORNECEDOR")
 public class Fornecedor extends PessoaJuridica{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_PESSOA")
-    @Column(name = "ID_PESSOA", nullable = false)
-    private Long idPessoa;
 
     @Column(name = "DATA_CADASTRO", nullable = false)
     private LocalDate dataCadastro;
@@ -34,15 +28,6 @@ public class Fornecedor extends PessoaJuridica{
         this.dataAtualizacao = dataAtualizacao;
     }
 
-    @Override
-    public Long getIdPessoa() {
-        return idPessoa;
-    }
-
-    @Override
-    public void setIdPessoa(Long idPessoa) {
-        this.idPessoa = idPessoa;
-    }
 }
 
 

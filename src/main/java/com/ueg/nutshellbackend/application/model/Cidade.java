@@ -2,9 +2,9 @@ package com.ueg.nutshellbackend.application.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
-@Entity
-@Table(name = "CIDADE", uniqueConstraints = {@UniqueConstraint(columnNames={"NOME", "ID_ESTADO"})})
+@Entity(name = "CIDADE")
 public class Cidade {
 
     @Id
@@ -15,9 +15,12 @@ public class Cidade {
     @Column(nullable = false, length = 200, name = "NOME")
     private String nome;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
+
+    @OneToMany(mappedBy = "cidade",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private Set<Endereco> enderecoSet;
 
     public String getNome() {
         return nome;
@@ -41,5 +44,13 @@ public class Cidade {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Endereco> getEnderecoSet() {
+        return enderecoSet;
+    }
+
+    public void setEnderecoSet(Set<Endereco> enderecoSet) {
+        this.enderecoSet = enderecoSet;
     }
 }

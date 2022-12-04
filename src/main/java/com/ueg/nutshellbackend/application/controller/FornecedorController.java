@@ -79,13 +79,13 @@ public class FornecedorController {
         return ResponseEntity.ok(fornecedoresDTO);
     }
 
-    @PutMapping(path = "/{idPessoa:\\d}/inativo", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "/{idPessoa:\\d}/inativo", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> inativar(@PathVariable final Long idPessoa) {
         fornecedorService.inativar(idPessoa);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(path = "/{idPessoa:\\d}/ativo", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "/{idPessoa:\\d}/ativo", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> ativar(@PathVariable final Long idPessoa) {
         fornecedorService.ativar(idPessoa);
         return ResponseEntity.ok().build();

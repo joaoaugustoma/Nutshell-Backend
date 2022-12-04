@@ -8,8 +8,7 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "TELEFONE", schema= Constante.DATABASE_OWNER)
+@Entity(name = "TELEFONE")
 @SequenceGenerator(name = "S_TELEFONE", sequenceName = "S_TELEFONE", allocationSize = 1, schema = Constante.DATABASE_OWNER)
 public class Telefone implements Serializable {
 
@@ -19,7 +18,7 @@ public class Telefone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_TELEFONE")
     @Column(name = "ID_TELEFONE", nullable = false)
-    private Long id;
+    private Long idTelefone;
 
     @Column(name = "NUMR_TELEFONE_USUARIO", length = 11, nullable = false)
     private String numero;
@@ -29,14 +28,14 @@ public class Telefone implements Serializable {
     private TipoTelefone tipo;
 
     @Column(name = "DDD_TELEFONE", length = 5)
-    private Long ddd;
+    private String ddd;
 
-    public Long getId() {
-        return id;
+    public Long getIdTelefone() {
+        return idTelefone;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdTelefone(Long id) {
+        this.idTelefone = id;
     }
 
     public String getNumero() {
@@ -55,11 +54,11 @@ public class Telefone implements Serializable {
         this.tipo = tipo;
     }
 
-    public Long getDdd() {
+    public String getDdd() {
         return ddd;
     }
 
-    public void setDdd(Long ddd) {
+    public void setDdd(String ddd) {
         this.ddd = ddd;
     }
 }

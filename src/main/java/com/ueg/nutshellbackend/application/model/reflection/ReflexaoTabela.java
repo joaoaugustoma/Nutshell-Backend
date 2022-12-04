@@ -15,13 +15,17 @@ public class ReflexaoTabela {
 
         Field idField = null;
         clazz = genericTabela.getClass();
-        attributes = clazz.getDeclaredFields();
 
-        for (Field attribute : attributes) {
-            if (attribute.isAnnotationPresent(Id.class)) {
-                idField = attribute;
+        while (clazz != GenericTabela.class) {
+            for (Field field : clazz.getDeclaredFields()) {
+                if (field.isAnnotationPresent(Id.class)) {
+                    idField = field;
+                    break;
+                }
             }
+            clazz = clazz.getSuperclass();
         }
+
         if (idField == null) {
             throw new RuntimeException(
                     "Classe: " + clazz.getName() + " não tem nenhum atributo anotado com @Id");

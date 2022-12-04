@@ -26,7 +26,7 @@ public class FornecedorRepositoryImpl implements FornecedorRepositoryCustom {
         jpql.append(" WHERE 1=1 ");
 
         if (!Util.isEmpty(filtroDTO.getNome())) {
-            jpql.append(" AND pessoa.nome = :razaoSocial ");
+            jpql.append(" AND pessoa.nome = :nome ");
             parametros.put("nome", filtroDTO.getNome());
         }
         if (!Util.isEmpty(filtroDTO.getCnpj())) {

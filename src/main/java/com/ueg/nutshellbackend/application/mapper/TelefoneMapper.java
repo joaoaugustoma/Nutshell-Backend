@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = { FornecedorMapper.class })
 public interface TelefoneMapper {
 
-    public TelefoneDTO toDTO(Telefone telefone);
+    TelefoneDTO toDTO(Telefone telefone);
 
-    public Telefone toEntity(TelefoneDTO telefoneUsuarioDTO);
+    Telefone toEntity(TelefoneDTO telefoneUsuarioDTO);
 }

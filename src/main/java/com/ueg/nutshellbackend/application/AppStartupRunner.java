@@ -2,11 +2,9 @@ package com.ueg.nutshellbackend.application;
 
 import com.ueg.nutshellbackend.application.enums.IndicadorInscricaoEstadual;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
-import com.ueg.nutshellbackend.application.model.Cidade;
-import com.ueg.nutshellbackend.application.model.Endereco;
-import com.ueg.nutshellbackend.application.model.Fornecedor;
-import com.ueg.nutshellbackend.application.repository.CidadeRepository;
-import com.ueg.nutshellbackend.application.repository.FornecedorRepository;
+import com.ueg.nutshellbackend.application.enums.TipoTelefone;
+import com.ueg.nutshellbackend.application.model.*;
+import com.ueg.nutshellbackend.application.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 public class AppStartupRunner implements ApplicationRunner {
@@ -30,6 +26,12 @@ public class AppStartupRunner implements ApplicationRunner {
     @Autowired
     CidadeRepository cidadeRepository;
 
+    @Autowired
+    ContatoRepository contatoRepository;
+
+    @Autowired
+    TelefoneRepository telefoneRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         initiateDemoInstance();
@@ -41,43 +43,48 @@ public class AppStartupRunner implements ApplicationRunner {
 
     private void fornecedorInstance() {
         Endereco endereco = enderecoInstance();
-
+        Contato contato = contatoInstance();
         Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setIdPessoa(1L);
+
         fornecedor.setNome("SAFEWARE TECNOLOGIA LTDA");
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        fornecedor.setEnderecos(Collections.singleton(endereco));
+        fornecedor.setEndereco(endereco);
         fornecedor.setCnpj("08103165000109");
         fornecedor.setInscricaoEstadual("388.108.598.269");
         fornecedor.setNomeFantasia("UNIKA SISTEMAS");
         fornecedor.setDataCadastro(LocalDate.of(2021, 10, 19));
         fornecedor.setDataAtualizacao(LocalDate.now());
-        fornecedor.setContatos(new HashSet<>());
+        fornecedor.setContatos(Collections.singleton(contato));
         fornecedor.setInscricaoMunicipal("388.108.598.269");
         fornecedor.setIndicadorInscricaoEstadual(IndicadorInscricaoEstadual.CONTRIBUINTE);
 
         fornecedorRepository.save(fornecedor);
 
-        endereco.setId(2L);
+        contato.setPessoa(fornecedor);
+        contatoRepository.save(contato);
+    }
 
-        fornecedor.setIdPessoa(2L);
-        fornecedor.setNome("uau");
-        fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-        fornecedor.setEnderecos(Collections.singleton(endereco));
-        fornecedor.setCnpj("00000000000001");
-        fornecedor.setInscricaoEstadual("123.123.123.123");
-        fornecedor.setNomeFantasia("UNIKA");
-        fornecedor.setDataCadastro(LocalDate.of(2021, 10, 24));
-        fornecedor.setDataAtualizacao(LocalDate.now());
-        fornecedor.setContatos(new HashSet<>());
+    private Contato contatoInstance() {
+        Contato contato = new Contato();
+        contato.setNome("João");
+        contato.setTelefonePrincipal(telefoneInstance());
+        contato.setEmail("joao@email.com");
+        contato.setContatoPrincipal(Boolean.TRUE);
 
-        fornecedorRepository.save(fornecedor);
+        return contato;
+    }
 
+    private Telefone telefoneInstance() {
+        Telefone telefone = new Telefone();
+        telefone.setDdd("61");
+        telefone.setNumero("999999999");
+        telefone.setTipo(TipoTelefone.CELULAR);
+
+        return telefone;
     }
 
     private Endereco enderecoInstance(){
         Endereco endereco = new Endereco();
-        endereco.setId(1L);
         endereco.setBairro("Setor Central");
         endereco.setNumeroEndereco("1440");
         endereco.setCep("75020010");

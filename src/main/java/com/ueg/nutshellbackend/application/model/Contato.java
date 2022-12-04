@@ -3,44 +3,44 @@ package com.ueg.nutshellbackend.application.model;
 import com.ueg.nutshellbackend.application.configuration.Constante;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Entity
-@Table(name = "CONTATO", schema= Constante.DATABASE_OWNER)
+@Entity(name = "CONTATO")
 @SequenceGenerator(name = "S_CONTATO", sequenceName = "S_CONTATO", allocationSize = 1, schema = Constante.DATABASE_OWNER)
 public class Contato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_CONTATO")
     @Column(name = "ID_CONTATO", nullable = false)
-    private Long id;
+    private Long idContato;
 
-    @Column(nullable = false, length = 300, name = "NOME")
+    @Column(length = 300, name = "NOME", nullable = false)
     private String nome;
 
-    @Column(nullable = true, length = 300, name = "EMAIL")
+    @Column(length = 300, name = "EMAIL", nullable = false)
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "TELEFONE_1", nullable = false)
-    private Telefone telefone1;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_TELEFONE_PRINCIPAL", nullable = false)
+    private Telefone telefonePrincipal;
 
-    @OneToOne
-    @JoinColumn(name = "TELEFONE_2", nullable = true)
-    private Telefone telefone2;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_TELEFONE_SECUNDARIO")
+    private Telefone telefoneSecundario;
 
-    @Column(nullable = false, name = "CONTATO_PRINCIPAL")
+    @Column(name = "CONTATO_PRINCIPAL", nullable = false)
     private Boolean isContatoPrincipal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA", nullable = false)
+    @ManyToOne()
+    @JoinColumn(name = "ID_PESSOA")
     private Pessoa pessoa;
 
-    public Long getId() {
-        return id;
+    public Long getIdContato() {
+        return idContato;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdContato(Long idContato) {
+        this.idContato = idContato;
     }
 
     public String getNome() {
@@ -59,22 +59,6 @@ public class Contato {
         this.email = email;
     }
 
-    public Telefone getTelefone1() {
-        return telefone1;
-    }
-
-    public void setTelefone1(Telefone telefone1) {
-        this.telefone1 = telefone1;
-    }
-
-    public Telefone getTelefone2() {
-        return telefone2;
-    }
-
-    public void setTelefone2(Telefone telefone2) {
-        this.telefone2 = telefone2;
-    }
-
     public Boolean getContatoPrincipal() {
         return isContatoPrincipal;
     }
@@ -89,5 +73,21 @@ public class Contato {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public Telefone getTelefonePrincipal() {
+        return telefonePrincipal;
+    }
+
+    public void setTelefonePrincipal(Telefone telefonePrincipal) {
+        this.telefonePrincipal = telefonePrincipal;
+    }
+
+    public Telefone getTelefoneSecundario() {
+        return telefoneSecundario;
+    }
+
+    public void setTelefoneSecundario(Telefone telefoneSecundario) {
+        this.telefoneSecundario = telefoneSecundario;
     }
 }
