@@ -99,4 +99,14 @@ public class Util {
     public static boolean isNotNull(String string) {
         return string != null;
     }
+
+    public static Object getRepositoryClass(String className) {
+        try {
+            return Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Não foi possível encontrar a classe: " + className, e);
+        }
+    }
+
+
 }

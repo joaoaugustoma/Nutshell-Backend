@@ -5,13 +5,10 @@ import com.ueg.nutshellbackend.common.exception.BusinessException;
 import com.ueg.nutshellbackend.common.exception.MessageCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractService<TABELA extends GenericTabela, TABELA_DTO, TYPE_PK> {
-
-    EntityManager entityManager;
+public abstract class AbstractService<TABELA extends GenericTabela, TYPE_PK> {
 
     public TABELA salvar(TABELA tabela){
         if(validarIdNull(tabela)){

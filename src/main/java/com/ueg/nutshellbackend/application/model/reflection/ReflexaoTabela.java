@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 public class ReflexaoTabela {
 
     private static Class<?> clazz;
-    private static Field[] attributes;
 
     private static Field getIdField(GenericTabela genericTabela) {
         validarParametroTab(genericTabela);
@@ -36,7 +35,6 @@ public class ReflexaoTabela {
     public static Object getIdValue(GenericTabela genericTabela
     ) {
         Field idField = getIdField(genericTabela);
-//        String idMethodName = Util.getGetterMethodName(idField.getName());
 
         return Util.invokeGetMethod(genericTabela, idField.getName());
     }

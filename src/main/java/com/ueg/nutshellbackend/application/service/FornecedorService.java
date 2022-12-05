@@ -1,5 +1,6 @@
 package com.ueg.nutshellbackend.application.service;
 
+import com.ueg.nutshellbackend.application.annotation.RepositoryName;
 import com.ueg.nutshellbackend.application.dto.FornecedorDTO;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
 import com.ueg.nutshellbackend.application.model.Contato;
@@ -23,7 +24,8 @@ import java.util.Set;
 
 @Service()
 @Transactional(propagation = Propagation.REQUIRED)
-public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO, Long> {
+@RepositoryName("com.ueg.nutshellbackend.application.repository.FornecedorRepository")
+public class FornecedorService extends AbstractService<Fornecedor, Long> {
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
@@ -32,7 +34,7 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
 
     @Override
     protected JpaRepository<Fornecedor, Long> getRepository() {
-        return  this.fornecedorRepository;
+        return (JpaRepository<Fornecedor, Long>) Util.getRepositoryClass(this.getClass().getAnnotation(RepositoryName.class).value());
     }
 
     Set<Contato> contatos = new HashSet<>();
@@ -98,8 +100,6 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
         fornecedor.setDataCadastro(LocalDate.now());
         fornecedor.setDataAtualizacao(LocalDate.now());
-
-
     }
 
     @Override
@@ -109,32 +109,27 @@ public class FornecedorService extends AbstractService<Fornecedor, FornecedorDTO
 
     private void incluirContatos(Fornecedor fornecedor) {
         contatos = fornecedor.getContatos();
-
         for(Contato contato : contatos){
             contato.setPessoa(fornecedor);
         }
-
         contatoRepository.saveAll(contatos);
     }
 
     public Fornecedor inativar(Long idPessoa) {
         Fornecedor fornecedor = fornecedorRepository.getReferenceById(idPessoa);
         fornecedor.setStatus(StatusAtivoInativo.INATIVO);
-
         return fornecedor;
     }
 
     public Fornecedor ativar(Long idPessoa) {
         Fornecedor fornecedor = fornecedorRepository.getReferenceById(idPessoa);
         fornecedor.setStatus(StatusAtivoInativo.ATIVO);
-
         return fornecedor;
     }
 
     private void validarFornecedorDuplicadoPorCnpj(String cnpj) {
         Fornecedor fornecedorByCnpj = fornecedorRepository.findByCnpj(cnpj);
         Long count = fornecedorRepository.countByCnpj(cnpj);
-
         if ( (count > BigDecimal.ONE.longValue() && fornecedorByCnpj.getIdPessoa()!=null) ||
                 (count > BigDecimal.ZERO.longValue() && fornecedorByCnpj.getIdPessoa()==null)
         ) {
