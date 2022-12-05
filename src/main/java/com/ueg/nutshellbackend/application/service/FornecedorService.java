@@ -34,7 +34,8 @@ public class FornecedorService extends AbstractService<Fornecedor, Long> {
 
     @Override
     protected JpaRepository<Fornecedor, Long> getRepository() {
-        return (JpaRepository<Fornecedor, Long>) Util.getRepositoryClass(this.getClass().getAnnotation(RepositoryName.class).value());
+        return fornecedorRepository;
+//        return (JpaRepository<Fornecedor, Long>) Util.getRepositoryClass(this.getClass().getAnnotation(RepositoryName.class).value());
     }
 
     Set<Contato> contatos = new HashSet<>();
