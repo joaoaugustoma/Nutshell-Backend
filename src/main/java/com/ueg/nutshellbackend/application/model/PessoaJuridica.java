@@ -3,9 +3,8 @@ package com.ueg.nutshellbackend.application.model;
 import com.ueg.nutshellbackend.application.enums.IndicadorInscricaoEstadual;
 import com.ueg.nutshellbackend.application.enums.converter.IndicadorInscricaoEstadualConverter;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 @Entity(name = "PESSOA_JURIDICA")
 public class PessoaJuridica extends Pessoa{
     @Column(name = "CNPJ", nullable = false)
@@ -23,6 +22,10 @@ public class PessoaJuridica extends Pessoa{
     @Convert(converter = IndicadorInscricaoEstadualConverter.class)
     @Column(name = "INDICADOR_INSCRICAO_ESTADUAL", nullable = false)
     private IndicadorInscricaoEstadual indicadorInscricaoEstadual;
+
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ID_PESSOA", nullable = false)
+//    private Pessoa pessoa;
 
     public String getCnpj() {
         return cnpj;
@@ -63,4 +66,12 @@ public class PessoaJuridica extends Pessoa{
     public void setIndicadorInscricaoEstadual(IndicadorInscricaoEstadual indicadorInscricaoEstadual) {
         this.indicadorInscricaoEstadual = indicadorInscricaoEstadual;
     }
+
+//    public Pessoa getPessoa() {
+//        return pessoa;
+//    }
+//
+//    public void setPessoa(Pessoa pessoa) {
+//        this.pessoa = pessoa;
+//    }
 }

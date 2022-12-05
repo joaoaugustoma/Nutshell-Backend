@@ -7,10 +7,12 @@ import com.ueg.nutshellbackend.common.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import java.util.HashMap;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class FornecedorRepositoryImpl implements FornecedorRepositoryCustom {
 
@@ -18,30 +20,24 @@ public class FornecedorRepositoryImpl implements FornecedorRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<Fornecedor> listarByFiltro(FornecedorDTO filtroDTO) {
-        Map<String, Object> parametros = new HashMap<>();
-        StringBuilder jpql = new StringBuilder();
-        jpql.append(" SELECT DISTINCT fornecedor FROM Fornecedor fornecedor");
-        jpql.append(" JOIN Pessoa pessoa ON pessoa.id = fornecedor.id_pessoa");
-        jpql.append(" WHERE 1=1 ");
+    public List<Fornecedor> listarByFiltro(FornecedorDTO filtroFornecedor) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Fornecedor> criteriaQuery = criteriaBuilder.createQuery(Fornecedor.class);
 
-        if (!Util.isEmpty(filtroDTO.getNome())) {
-            jpql.append(" AND pessoa.nome = :nome ");
-            parametros.put("nome", filtroDTO.getNome());
+        Root<Fornecedor> fornecedorRoot = criteriaQuery.from(Fornecedor.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        if(Util.isNotNull(filtroFornecedor.getNome())){
+            predicates.add(criteriaBuilder.like(fornecedorRoot.get("nome"), "%" + filtroFornecedor.getNome() + "%"));
         }
-        if (!Util.isEmpty(filtroDTO.getCnpj())) {
-            jpql.append(" AND fornecedor.cnpj = :cnpj ");
-            parametros.put("cnpj", filtroDTO.getCnpj());
+        if(Util.isNotNull(filtroFornecedor.getCnpj())){
+            predicates.add(criteriaBuilder.like(fornecedorRoot.get("cnpj"), "%" + filtroFornecedor.getCnpj() + "%"));
         }
-//        if (filtroDTO.getStatus() != null) {
-//            jpql.append(" AND fornecedor.status = :status ");
-//            parametros.put("status", filtroDTO.getStatus());
-//        }
+        if(Util.isNotNull(filtroFornecedor.getStatus())){
+            predicates.add(criteriaBuilder.equal(fornecedorRoot.get("status"), filtroFornecedor.getStatus()));
+        }
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
 
-        jpql.append(" ORDER BY fornecedor.nome ASC ");
-
-        TypedQuery<Fornecedor> query = entityManager.createQuery(jpql.toString(), Fornecedor.class);
-        parametros.forEach(query::setParameter);
-        return query.getResultList();
+        return entityManager.createQuery(criteriaQuery).getResultList();
     }
 }

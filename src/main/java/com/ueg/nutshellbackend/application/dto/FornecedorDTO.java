@@ -1,11 +1,8 @@
 package com.ueg.nutshellbackend.application.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FornecedorDTO extends PessoaJuridicaDTO implements Serializable {
 
     private LocalDate dataCadastro;

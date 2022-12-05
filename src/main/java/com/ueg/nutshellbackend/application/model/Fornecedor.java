@@ -12,6 +12,10 @@ public class Fornecedor extends PessoaJuridica{
     @Column(name = "DATA_ATUALIZACAO", nullable = false)
     private LocalDate dataAtualizacao;
 
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ID_PESSOA", nullable = false)
+//    private Pessoa pessoa;
+
     public LocalDate getDataCadastro() {
         return dataCadastro;
     }
@@ -28,6 +32,13 @@ public class Fornecedor extends PessoaJuridica{
         this.dataAtualizacao = dataAtualizacao;
     }
 
+//    public Pessoa getPessoa() {
+//        return pessoa;
+//    }
+//
+//    public void setPessoa(Pessoa pessoa) {
+//        this.pessoa = pessoa;
+//    }
 }
 
 

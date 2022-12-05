@@ -1,8 +1,5 @@
 package com.ueg.nutshellbackend.application.dto;
 
-import com.ueg.nutshellbackend.application.model.Contato;
-import com.ueg.nutshellbackend.application.model.Telefone;
-
 import java.io.Serializable;
 import java.util.Set;
 

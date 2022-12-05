@@ -95,4 +95,8 @@ public class Util {
             return Boolean.FALSE;
         }
     }
+
+    public static boolean isNotNull(String string) {
+        return string != null;
+    }
 }

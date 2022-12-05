@@ -69,9 +69,10 @@ public class FornecedorController {
     }
 
 
-    @GetMapping(path = "/filtro", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> getFornecedorsByFiltro(@ModelAttribute("filtroDTO") final FornecedorDTO filtroDTO) {
+    @PostMapping(path = "/filtro", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> getFornecedorsByFiltro(@RequestBody FornecedorDTO filtroDTO) {
         List<Fornecedor> fornecedores = fornecedorService.listarByFiltro(filtroDTO);
+
         List<FornecedorDTO> fornecedoresDTO = new ArrayList<>();
         for (Fornecedor fornecedor : fornecedores) {
             fornecedoresDTO.add(fornecedorMapper.toDTO(fornecedor));
