@@ -100,13 +100,13 @@ public class Util {
         return string != null;
     }
 
-    public static Object getRepositoryClass(String className) {
+    public static Object getRepositoryClass(String repositoryName) {
         try {
-            return Class.forName(className);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Não foi possível encontrar a classe: " + className, e);
+            repositoryName = "com.ueg.nutshellbackend.application.repository." + repositoryName;
+            return Class.forName(repositoryName).newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException("Não foi possível encontrar a repositorye: " + repositoryName, e);
         }
     }
-
 
 }

@@ -24,19 +24,13 @@ import java.util.Set;
 
 @Service()
 @Transactional(propagation = Propagation.REQUIRED)
-@RepositoryName("com.ueg.nutshellbackend.application.repository.FornecedorRepository")
+@RepositoryName("FornecedorRepository")
 public class FornecedorService extends AbstractService<Fornecedor, Long> {
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
     @Autowired
     private ContatoRepository contatoRepository;
-
-    @Override
-    protected JpaRepository<Fornecedor, Long> getRepository() {
-        return fornecedorRepository;
-//        return (JpaRepository<Fornecedor, Long>) Util.getRepositoryClass(this.getClass().getAnnotation(RepositoryName.class).value());
-    }
 
     Set<Contato> contatos = new HashSet<>();
 
