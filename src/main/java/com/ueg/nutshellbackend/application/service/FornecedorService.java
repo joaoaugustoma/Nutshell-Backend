@@ -147,4 +147,8 @@ public class FornecedorService extends AbstractService<Fornecedor, Long> {
     public List<Fornecedor> listarByFiltro(FornecedorDTO filtroDTO) {
         return fornecedorRepository.listarByFiltro(filtroDTO);
     }
+
+    public void gerarRelatorio(List<Fornecedor> fornecedores) {
+
+    }
 }

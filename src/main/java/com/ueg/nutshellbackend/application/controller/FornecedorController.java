@@ -91,4 +91,12 @@ public class FornecedorController {
         fornecedorService.ativar(idPessoa);
         return ResponseEntity.ok().build();
     }
+
+    //JasperReport
+    @GetMapping(path = "/relatorio", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getRelatorio(@RequestBody FornecedorDTO filtroDTO ) {
+        List<Fornecedor> fornecedores = fornecedorService.listarByFiltro(filtroDTO);
+        fornecedorService.gerarRelatorio(fornecedores);
+        return ResponseEntity.ok().build();
+    }
 }
