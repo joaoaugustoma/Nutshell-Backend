@@ -92,7 +92,6 @@ public class FornecedorController {
         return ResponseEntity.ok().build();
     }
 
-    //JasperReport
     @GetMapping(path = "/relatorio", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getRelatorio(@RequestBody FornecedorDTO filtroDTO ) {
         List<Fornecedor> fornecedores = fornecedorService.listarByFiltro(filtroDTO);
