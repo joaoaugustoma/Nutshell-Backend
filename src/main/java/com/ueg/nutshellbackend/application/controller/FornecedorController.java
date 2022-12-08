@@ -5,6 +5,9 @@ import com.ueg.nutshellbackend.application.mapper.FornecedorMapper;
 import com.ueg.nutshellbackend.application.model.Fornecedor;
 import com.ueg.nutshellbackend.application.service.FornecedorService;
 import com.ueg.nutshellbackend.common.exception.NotFoundException;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -92,10 +95,18 @@ public class FornecedorController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(path = "/relatorio", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/relatorioPdf", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getRelatorio(@RequestBody FornecedorDTO filtroDTO ) {
-        List<Fornecedor> fornecedores = fornecedorService.listarByFiltro(filtroDTO);
-        fornecedorService.gerarRelatorio(fornecedores);
+        List<Fornecedor> listaRelatorio = fornecedorService.listarByFiltro(filtroDTO);
+        if(listaRelatorio != null && listaRelatorio.size() > 0){
+            JasperPrint jasperPrint = fornecedorService.gerarRelatorio(listaRelatorio);
+            try {
+                JasperExportManager.exportReportToPdf(jasperPrint);
+            } catch (JRException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        ;
         return ResponseEntity.ok().build();
     }
 }

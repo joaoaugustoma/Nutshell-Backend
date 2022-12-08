@@ -48,7 +48,8 @@ public enum MessageCode implements IMessageCode{
     ERRO_FORNECEDOR_DUPLICADO("MSG-047", 400),
 
     ERRO_CNPJ_INVALIDO("MSG-048", 400),
-    ERRO_NENHUM_REPOSITORY_ENCONTRADO("MSG-049", 400);
+    ERRO_NENHUM_REPOSITORY_ENCONTRADO("MSG-049", 400),
+    ERRO_RELATORIO_VAZIO("MSG-050", 400);
 
     private final String code;
 

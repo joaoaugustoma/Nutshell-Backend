@@ -4,23 +4,30 @@ import com.ueg.nutshellbackend.application.annotation.RepositoryName;
 import com.ueg.nutshellbackend.application.dto.FornecedorDTO;
 import com.ueg.nutshellbackend.application.enums.StatusAtivoInativo;
 import com.ueg.nutshellbackend.application.model.Contato;
+import com.ueg.nutshellbackend.application.model.Endereco;
 import com.ueg.nutshellbackend.application.model.Fornecedor;
+import com.ueg.nutshellbackend.application.repository.CidadeRepository;
 import com.ueg.nutshellbackend.application.repository.ContatoRepository;
 import com.ueg.nutshellbackend.application.repository.FornecedorRepository;
 import com.ueg.nutshellbackend.common.exception.BusinessException;
 import com.ueg.nutshellbackend.common.exception.MessageCode;
 import com.ueg.nutshellbackend.common.util.Util;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.jsf.FacesContextUtils;
 
+import java.io.File;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service()
 @Transactional(propagation = Propagation.REQUIRED)
@@ -28,6 +35,9 @@ import java.util.Set;
 public class FornecedorService extends AbstractService<Fornecedor, Long> {
     @Autowired
     private FornecedorRepository fornecedorRepository;
+
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
     @Autowired
     private ContatoRepository contatoRepository;
@@ -142,7 +152,50 @@ public class FornecedorService extends AbstractService<Fornecedor, Long> {
         return fornecedorRepository.listarByFiltro(filtroDTO);
     }
 
-    public void gerarRelatorio(List<Fornecedor> fornecedores) {
+    public JasperPrint gerarRelatorio(List<Fornecedor> listaRelatorio) {
+        if(listaRelatorio.isEmpty()){
+            throw new BusinessException(MessageCode.ERRO_RELATORIO_VAZIO);
+        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("REPORT_LOCALE", new Locale("pt", "BR"));
+        params.put("LOGO_PATH", ClassLoader.getSystemResource("src/main/resources/reports/assets/logoReports.png").getPath());
 
+        List<Map<String, Object>> listaRelatorioFornecedores = new ArrayList<>();
+        Endereco fornecedorEndereco = new Endereco();
+
+        for (Fornecedor fornecedor : listaRelatorio) {
+            Map<String, Object> mapParamFornecedores = new HashMap<String, Object>();
+            for (Contato fornecedorContato : fornecedor.getContatos()) {
+                if(fornecedorContato.getContatoPrincipal()){
+                    mapParamFornecedores.put("telefonePrincipal", fornecedorContato.getTelefonePrincipal());
+                    mapParamFornecedores.put("emailPrincipal", fornecedorContato.getEmail());
+                }
+            }
+            mapParamFornecedores.put("cnpj", fornecedor.getCnpj());
+            mapParamFornecedores.put("razaoSocial", fornecedor.getNome());
+            fornecedorEndereco = fornecedor.getEndereco();
+            if(fornecedorEndereco.getLogradouro() != null){
+                mapParamFornecedores.put("endereco", fornecedorEndereco.getLogradouro());
+            } else {
+                mapParamFornecedores.put("endereco", "");
+            }
+            if(fornecedorEndereco.getCidade() != null){
+                mapParamFornecedores.put("cidade",cidadeRepository.findById(fornecedorEndereco.getCidade().getId()));
+            } else {
+                mapParamFornecedores.put("cidade", "");
+            }
+            listaRelatorioFornecedores.add(mapParamFornecedores);
+        }
+
+        JRDataSource jrDataVendasPorDesconto = new JRBeanCollectionDataSource(listaRelatorioFornecedores);
+        String baseReportPath = "fornecedorReport.jasper";
+
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(baseReportPath, params, jrDataVendasPorDesconto);
+            return jasperPrint;
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
