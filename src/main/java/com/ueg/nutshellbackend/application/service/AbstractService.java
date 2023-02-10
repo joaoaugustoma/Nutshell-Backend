@@ -29,6 +29,10 @@ public abstract class AbstractService<TABELA extends GenericTabela, TYPE_PK> {
         return tabela;
     }
 
+    public void excluir(TYPE_PK typePk) {
+        getRepository().deleteById(typePk);
+    }
+
     public TABELA listarById(TYPE_PK typePk ) {
         Optional<TABELA> tabela = getRepository().findById(typePk);
         if(tabela.isPresent()){

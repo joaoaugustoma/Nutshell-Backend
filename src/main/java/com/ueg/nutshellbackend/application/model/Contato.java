@@ -1,13 +1,14 @@
 package com.ueg.nutshellbackend.application.model;
 
 import com.ueg.nutshellbackend.application.configuration.Constante;
+import com.ueg.nutshellbackend.application.model.reflection.GenericTabela;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "CONTATO")
 @SequenceGenerator(name = "S_CONTATO", sequenceName = "S_CONTATO", allocationSize = 1, schema = Constante.DATABASE_OWNER)
-public class Contato {
+public class Contato extends GenericTabela {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_CONTATO")
@@ -20,16 +21,14 @@ public class Contato {
     @Column(length = 300, name = "EMAIL", nullable = false)
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_TELEFONE_PRINCIPAL", nullable = false)
-    private Telefone telefonePrincipal;
+    @Column(length = 2, name = "DDD", nullable = false)
+    private String ddd;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_TELEFONE_SECUNDARIO")
-    private Telefone telefoneSecundario;
+    @Column(length = 9, name = "TELEFONE", nullable = false)
+    private String telefone;
 
-    @Column(name = "CONTATO_PRINCIPAL", nullable = false)
-    private Boolean isContatoPrincipal;
+    @Column(name = "IS_FAV", nullable = false)
+    private boolean isFav;
 
     @ManyToOne()
     @JoinColumn(name = "ID_PESSOA")
@@ -59,14 +58,6 @@ public class Contato {
         this.email = email;
     }
 
-    public Boolean getContatoPrincipal() {
-        return isContatoPrincipal;
-    }
-
-    public void setContatoPrincipal(Boolean contatoPrincipal) {
-        isContatoPrincipal = contatoPrincipal;
-    }
-
     public Pessoa getPessoa() {
         return pessoa;
     }
@@ -75,19 +66,27 @@ public class Contato {
         this.pessoa = pessoa;
     }
 
-    public Telefone getTelefonePrincipal() {
-        return telefonePrincipal;
+    public String getDdd() {
+        return ddd;
     }
 
-    public void setTelefonePrincipal(Telefone telefonePrincipal) {
-        this.telefonePrincipal = telefonePrincipal;
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
     }
 
-    public Telefone getTelefoneSecundario() {
-        return telefoneSecundario;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelefoneSecundario(Telefone telefoneSecundario) {
-        this.telefoneSecundario = telefoneSecundario;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public void setFav(boolean fav) {
+        isFav = fav;
     }
 }

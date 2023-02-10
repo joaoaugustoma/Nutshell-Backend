@@ -165,12 +165,12 @@ public class FornecedorService extends AbstractService<Fornecedor, Long> {
 
         for (Fornecedor fornecedor : listaRelatorio) {
             Map<String, Object> mapParamFornecedores = new HashMap<String, Object>();
-            for (Contato fornecedorContato : fornecedor.getContatos()) {
-                if(fornecedorContato.getContatoPrincipal()){
-                    mapParamFornecedores.put("telefonePrincipal", fornecedorContato.getTelefonePrincipal());
-                    mapParamFornecedores.put("emailPrincipal", fornecedorContato.getEmail());
-                }
-            }
+//            for (Contato fornecedorContato : fornecedor.getContatos()) {
+//                if(fornecedorContato.getContatoPrincipal()){
+//                    mapParamFornecedores.put("telefonePrincipal", fornecedorContato.getTelefonePrincipal());
+//                    mapParamFornecedores.put("emailPrincipal", fornecedorContato.getEmail());
+//                }
+//            }
             mapParamFornecedores.put("cnpj", fornecedor.getCnpj());
             mapParamFornecedores.put("razaoSocial", fornecedor.getNome());
             fornecedorEndereco = fornecedor.getEndereco();

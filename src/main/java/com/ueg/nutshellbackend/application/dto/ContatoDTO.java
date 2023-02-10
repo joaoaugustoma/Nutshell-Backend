@@ -4,9 +4,9 @@ public class ContatoDTO {
     private Long idContato;
     private String nome;
     private String email;
-    private TelefoneDTO telefonePrincipal;
-    private TelefoneDTO telefoneSecundario;
-    private Boolean isContatoPrincipal;
+    private String ddd;
+    private String telefone;
+    private boolean isFav;
 
     public Long getIdContato() {
         return idContato;
@@ -32,27 +32,27 @@ public class ContatoDTO {
         this.email = email;
     }
 
-    public TelefoneDTO getTelefonePrincipal() {
-        return telefonePrincipal;
+    public String getDdd() {
+        return ddd;
     }
 
-    public void setTelefonePrincipal(TelefoneDTO telefonePrincipal) {
-        this.telefonePrincipal = telefonePrincipal;
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
     }
 
-    public TelefoneDTO getTelefoneSecundario() {
-        return telefoneSecundario;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelefoneSecundario(TelefoneDTO telefoneSecundario) {
-        this.telefoneSecundario = telefoneSecundario;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
-    public Boolean getContatoPrincipal() {
-        return isContatoPrincipal;
+    public boolean isFav() {
+        return isFav;
     }
 
-    public void setContatoPrincipal(Boolean contatoPrincipal) {
-        isContatoPrincipal = contatoPrincipal;
+    public void setFav(boolean fav) {
+        isFav = fav;
     }
 }

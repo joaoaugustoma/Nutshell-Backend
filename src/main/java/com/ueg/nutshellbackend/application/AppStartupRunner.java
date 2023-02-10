@@ -34,11 +34,11 @@ public class AppStartupRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        initiateDemoInstance();
+     initiateDemoInstance();
     }
 
     private void initiateDemoInstance() {
-        fornecedorInstance();
+       fornecedorInstance();
     }
 
     private void fornecedorInstance() {
@@ -67,21 +67,21 @@ public class AppStartupRunner implements ApplicationRunner {
     private Contato contatoInstance() {
         Contato contato = new Contato();
         contato.setNome("João");
-        contato.setTelefonePrincipal(telefoneInstance());
         contato.setEmail("joao@email.com");
-        contato.setContatoPrincipal(Boolean.TRUE);
+        contato.setDdd("61");
+        contato.setTelefone("999999999");
 
         return contato;
     }
 
-    private Telefone telefoneInstance() {
-        Telefone telefone = new Telefone();
-        telefone.setDdd("61");
-        telefone.setNumero("999999999");
-        telefone.setTipo(TipoTelefone.CELULAR);
-
-        return telefone;
-    }
+//    private Telefone telefoneInstance() {
+//        Telefone telefone = new Telefone();
+//        telefone.setDdd("61");
+//        telefone.setNumero("999999999");
+//        telefone.setTipo(TipoTelefone.CELULAR);
+//
+//        return telefone;
+//    }
 
     private Endereco enderecoInstance(){
         Endereco endereco = new Endereco();

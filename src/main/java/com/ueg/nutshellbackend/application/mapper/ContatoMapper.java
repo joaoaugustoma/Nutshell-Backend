@@ -5,10 +5,10 @@ import com.ueg.nutshellbackend.application.model.Contato;
 import org.mapstruct.Mapper;
 
 
-@Mapper(componentModel = "spring", uses = { TelefoneMapper.class, TipoTelefoneMapper.class})
+@Mapper(componentModel = "spring")
 public interface ContatoMapper {
 
-    ContatoDTO toDTO(Contato fornecedor);
+    ContatoDTO toDTO(Contato contato);
 
-    Contato toEntity(ContatoDTO fornecedorDTO);
+    Contato toEntity(ContatoDTO contatoDTO);
 }
